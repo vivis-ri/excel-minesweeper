@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>업무보고.xlsx - Microsoft Excel</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Calibri', 'Malgun Gothic', Arial, sans-serif;
+  font-size: 12px;
+  background: #c8c8c8;
+  user-select: none;
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── 타이틀 바 ── */
+#title-bar {
+  background: #217346;
+  color: white;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  min-height: 28px;
+}
+#title-bar .win-btns { margin-left: auto; display: flex; gap: 8px; opacity: .7; }
+
+/* ── 메뉴 바 ── */
+#menu-bar {
+  background: #f3f3f3;
+  border-bottom: 1px solid #d4d4d4;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+.menu-item {
+  padding: 5px 10px;
+  cursor: default;
+  font-size: 12px;
+  color: #222;
+  white-space: nowrap;
+}
+.menu-item:hover { background: #d9ead3; }
+.menu-item.active { background: #217346; color: white; }
+
+/* ── 리본 ── */
+#ribbon {
+  background: #f3f3f3;
+  border-bottom: 2px solid #217346;
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+  min-height: 44px;
+}
+.ribbon-sep { width: 1px; background: #ccc; height: 28px; margin: 0 4px; }
+.ribbon-btn {
+  border: 1px solid transparent;
+  background: transparent;
+  padding: 2px 6px;
+  cursor: default;
+  font-size: 12px;
+  border-radius: 2px;
+  font-family: inherit;
+  color: #222;
+}
+.ribbon-btn:hover { background: #d9ead3; border-color: #b8d4b2; }
+.ribbon-select {
+  border: 1px solid #ccc;
+  background: white;
+  padding: 2px 4px;
+  font-size: 11px;
+  font-family: inherit;
+  cursor: default;
+  border-radius: 2px;
+}
+.ribbon-label { font-size: 11px; color: #555; }
+#new-game-btn {
+  background: #217346; color: white; border: 1px solid #1a5e38;
+  padding: 3px 10px; font-size: 11px; cursor: pointer; border-radius: 2px;
+  font-family: inherit;
+}
+#new-game-btn:hover { background: #1a5e38; }
+#mine-counter { font-size: 12px; font-weight: bold; color: #c00; background: #111; padding: 2px 6px; border-radius: 2px; letter-spacing: 1px; }
+#timer-counter { font-size: 12px; font-weight: bold; color: #c00; background: #111; padding: 2px 6px; border-radius: 2px; letter-spacing: 1px; }
+
+/* ── 수식 입력줄 ── */
+#formula-bar {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-bottom: 1px solid #d4d4d4;
+  padding: 2px 0;
+  min-height: 26px;
+}
+#name-box {
+  width: 80px; min-width: 80px;
+  border: none; border-right: 1px solid #d4d4d4;
+  padding: 2px 6px; font-size: 12px;
+  font-family: 'Calibri', Arial, sans-serif;
+  outline: none; text-align: center; background: white; color: #222;
+}
+#fx-label {
+  padding: 0 8px; font-style: italic; color: #666; font-size: 13px;
+  border-right: 1px solid #d4d4d4;
+}
+#formula-input {
+  flex: 1; border: none; outline: none; padding: 2px 6px;
+  font-size: 12px; font-family: 'Calibri', Arial, sans-serif;
+  color: #222; background: white;
+}
+
+/* ── 그리드 영역 ── */
+#grid-area {
+  flex: 1;
+  overflow: auto;
+  background: white;
+  position: relative;
+}
+#grid-wrapper {
+  display: inline-block;
+  min-width: 100%;
+}
+
+/* ── 헤더 ── */
+.col-header-row {
+  display: flex;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #f3f3f3;
+}
+.corner-cell {
+  width: 46px; min-width: 46px;
+  height: 20px;
+  background: #f3f3f3;
+  border-right: 1px solid #d4d4d4;
+  border-bottom: 1px solid #d4d4d4;
+}
+.col-header {
+  width: 64px; min-width: 64px;
+  height: 20px;
+  background: #f3f3f3;
+  border-right: 1px solid #d4d4d4;
+  border-bottom: 1px solid #d4d4d4;
+  text-align: center;
+  line-height: 20px;
+  font-size: 11px;
+  color: #444;
+}
+.col-header.hl { background: #d9ead3; color: #217346; font-weight: bold; }
+
+/* ── 행 ── */
+.grid-row { display: flex; }
+.row-header {
+  width: 46px; min-width: 46px;
+  height: 22px;
+  background: #f3f3f3;
+  border-right: 1px solid #d4d4d4;
+  border-bottom: 1px solid #d4d4d4;
+  text-align: center;
+  line-height: 22px;
+  font-size: 11px;
+  color: #444;
+  position: sticky;
+  left: 0;
+  z-index: 5;
+}
+.row-header.hl { background: #d9ead3; color: #217346; font-weight: bold; }
+
+/* ── 셀 ── */
+.cell {
+  width: 64px; min-width: 64px;
+  height: 22px;
+  border-right: 1px solid #d4d4d4;
+  border-bottom: 1px solid #d4d4d4;
+  position: relative;
+  text-align: center;
+  line-height: 20px;
+  font-size: 12px;
+  font-family: 'Calibri', Arial, sans-serif;
+  overflow: hidden;
+  cursor: default;
+}
+
+/* 미공개 셀 */
+.cell.hidden {
+  background: #f7f7f7;
+  cursor: pointer;
+}
+.cell.hidden:hover {
+  background: #e8f4fc;
+  border-right-color: #9fc3e0;
+  border-bottom-color: #9fc3e0;
+  z-index: 1;
+}
+
+/* 깃발 셀 */
+.cell.flagged {
+  background: #fffbe6;
+  cursor: pointer;
+}
+.cell.flagged::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 0 9px 9px 0;
+  border-color: transparent #e00 transparent transparent;
+}
+.cell.flagged:hover { background: #fff3cd; }
+
+/* 공개 셀 */
+.cell.revealed { background: white; cursor: default; }
+.cell.revealed:hover { background: #f0f8ff; }
+
+/* 지뢰 */
+.cell.mine { background: #ffe0e0; color: #cc0000; font-size: 10px; font-weight: bold; }
+.cell.mine-hit { background: #ff4444; color: white; font-size: 10px; font-weight: bold; }
+
+/* 잘못 표시된 깃발 */
+.cell.wrong-flag {
+  background: #ffd6d6;
+}
+.cell.wrong-flag::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 0 9px 9px 0;
+  border-color: transparent #888 transparent transparent;
+}
+
+/* 숫자 색상 */
+.n1 { color: #0000cc; font-weight: bold; }
+.n2 { color: #007700; font-weight: bold; }
+.n3 { color: #cc0000; font-weight: bold; }
+.n4 { color: #000099; font-weight: bold; }
+.n5 { color: #990000; font-weight: bold; }
+.n6 { color: #007777; font-weight: bold; }
+.n7 { color: #000000; font-weight: bold; }
+.n8 { color: #777777; font-weight: bold; }
+
+/* 선택된 셀 강조 */
+.cell.selected {
+  outline: 2px solid #1a73e8;
+  outline-offset: -2px;
+  z-index: 2;
+}
+
+/* ── 시트 탭 ── */
+#sheet-bar {
+  background: #d6d6d6;
+  border-top: 1px solid #bbb;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 4px;
+  height: 26px;
+  gap: 2px;
+}
+.sheet-tab {
+  padding: 3px 14px;
+  background: #e8e8e8;
+  border: 1px solid #bbb;
+  border-bottom: none;
+  cursor: pointer;
+  font-size: 11px;
+  border-radius: 3px 3px 0 0;
+  color: #555;
+}
+.sheet-tab.active {
+  background: white;
+  color: #217346;
+  border-top: 2px solid #217346;
+  font-weight: bold;
+}
+.sheet-tab:hover:not(.active) { background: #d9d9d9; }
+.sheet-add { padding: 3px 8px; font-size: 14px; color: #888; cursor: default; }
+
+/* ── 상태 바 ── */
+#status-bar {
+  background: #217346;
+  color: white;
+  padding: 2px 10px;
+  font-size: 11px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 22px;
+}
+
+/* ── 공용 모달 오버레이 ── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 100;
+  justify-content: center;
+  align-items: center;
+}
+.modal-overlay.show { display: flex; }
+
+/* ── 게임 결과 팝업 ── */
+#popup {
+  background: white;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  padding: 24px 32px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+  min-width: 300px;
+}
+#popup h2 { font-size: 18px; margin-bottom: 8px; }
+#popup p { color: #666; font-size: 13px; margin-bottom: 12px; }
+#popup-time { margin-bottom: 16px; font-weight: bold; color: #217346; font-size: 13px; }
+/* 닉네임 영역 (승리 시만 표시) */
+#nick-area { display: none; margin-bottom: 14px; }
+#nick-area label { font-size: 12px; color: #555; display: block; margin-bottom: 4px; }
+#nick-input {
+  width: 180px; padding: 5px 8px; font-size: 13px;
+  border: 1px solid #aaa; border-radius: 2px; font-family: inherit;
+  outline: none;
+}
+#nick-input:focus { border-color: #217346; box-shadow: 0 0 0 2px #d9ead3; }
+.popup-btns { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.popup-btns button {
+  border: none; padding: 7px 18px; font-size: 12px;
+  cursor: pointer; border-radius: 3px; font-family: inherit;
+}
+#rank-submit-btn { background: #217346; color: white; }
+#rank-submit-btn:hover { background: #1a5e38; }
+#popup-btn { background: #e8e8e8; color: #333; border: 1px solid #ccc; }
+#popup-btn:hover { background: #d4d4d4; }
+
+/* ── 랭킹 모달 ── */
+#rank-modal {
+  background: white;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.35);
+  width: 560px;
+  max-width: 95vw;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+#rank-modal-header {
+  background: #217346;
+  color: white;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: bold;
+}
+#rank-modal-header button {
+  background: none; border: none; color: white;
+  font-size: 16px; cursor: pointer; line-height: 1;
+  opacity: .8;
+}
+#rank-modal-header button:hover { opacity: 1; }
+/* 랭킹 탭 */
+#rank-tabs {
+  display: flex;
+  border-bottom: 2px solid #217346;
+  background: #f3f3f3;
+}
+.rank-tab {
+  padding: 7px 20px;
+  font-size: 12px;
+  cursor: pointer;
+  color: #555;
+  border-right: 1px solid #ddd;
+}
+.rank-tab:hover:not(.active) { background: #e0f0e8; }
+.rank-tab.active { background: white; color: #217346; font-weight: bold; border-bottom: 2px solid white; margin-bottom: -2px; }
+/* 랭킹 테이블 */
+#rank-body { flex: 1; overflow-y: auto; padding: 12px 16px; }
+#rank-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+#rank-table th {
+  background: #f3f3f3; border: 1px solid #ddd;
+  padding: 5px 10px; text-align: left; color: #444;
+  font-weight: bold; position: sticky; top: 0;
+}
+#rank-table td { border: 1px solid #eee; padding: 5px 10px; color: #222; }
+#rank-table tr:nth-child(even) td { background: #f9f9f9; }
+#rank-table tr.my-rank td { background: #e8f5e9; color: #1a5e38; font-weight: bold; }
+.rank-gold   { color: #d4af37; font-weight: bold; }
+.rank-silver { color: #9e9e9e; font-weight: bold; }
+.rank-bronze { color: #cd7f32; font-weight: bold; }
+#rank-empty { text-align: center; color: #aaa; padding: 32px; font-size: 13px; }
+#rank-footer { padding: 8px 16px; border-top: 1px solid #eee; text-align: right; font-size: 11px; color: #888; }
+</style>
+</head>
+<body>
+
+<!-- 타이틀 바 -->
+<div id="title-bar">
+  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23217346'/%3E%3Cpath d='M3 3h4l1.5 3L10 3h3L10 8l3 5h-3l-1.5-3L7 13H3l3-5z' fill='white'/%3E%3C/svg%3E" width="16" height="16" style="margin-right:6px">
+  <span>업무보고.xlsx - Microsoft Excel</span>
+  <div class="win-btns">─ &nbsp;&nbsp; ▢ &nbsp;&nbsp; ✕</div>
+</div>
+
+<!-- 메뉴 바 -->
+<div id="menu-bar">
+  <div class="menu-item">파일</div>
+  <div class="menu-item active">홈</div>
+  <div class="menu-item">삽입</div>
+  <div class="menu-item">페이지 레이아웃</div>
+  <div class="menu-item">수식</div>
+  <div class="menu-item" data-action="ranking" style="cursor:pointer" title="랭킹 보기">데이터</div>
+  <div class="menu-item">검토</div>
+  <div class="menu-item">보기</div>
+</div>
+
+<!-- 리본 -->
+<div id="ribbon">
+  <!-- 폰트 그룹 -->
+  <select class="ribbon-select" style="width:100px">
+    <option>맑은 고딕</option>
+    <option>Calibri</option>
+    <option>Arial</option>
+  </select>
+  <select class="ribbon-select" style="width:40px">
+    <option>11</option>
+    <option>12</option>
+    <option>14</option>
+  </select>
+  <button class="ribbon-btn" style="font-weight:bold">B</button>
+  <button class="ribbon-btn" style="font-style:italic">I</button>
+  <button class="ribbon-btn" style="text-decoration:underline">U</button>
+  <div class="ribbon-sep"></div>
+
+  <!-- 정렬 -->
+  <button class="ribbon-btn">≡</button>
+  <button class="ribbon-btn" style="letter-spacing:-1px">☰</button>
+  <button class="ribbon-btn" style="text-align:right">≡</button>
+  <button class="ribbon-btn">⇥</button>
+  <div class="ribbon-sep"></div>
+
+  <!-- 표시 형식 -->
+  <select class="ribbon-select" style="width:90px">
+    <option>일반</option>
+    <option>숫자</option>
+    <option>통화</option>
+    <option>백분율</option>
+    <option>날짜</option>
+  </select>
+  <div class="ribbon-sep"></div>
+
+  <!-- 게임 컨트롤 (엑셀 도구처럼 위장) -->
+  <span class="ribbon-label">📋 현재 시트:</span>
+  <span id="difficulty-label" style="font-size:11px; padding:2px 8px; background:white; border:1px solid #ccc; border-radius:2px; color:#222;">보고서 — 기초 집계 (8×8)</span>
+  <button id="new-game-btn">새로 고침 ↺</button>
+
+  <div class="ribbon-sep"></div>
+  <span class="ribbon-label">미확인:</span>
+  <span id="mine-counter">040</span>
+  <span class="ribbon-label" style="margin-left:8px">경과:</span>
+  <span id="timer-counter">000</span>
+</div>
+
+<!-- 수식 입력줄 -->
+<div id="formula-bar">
+  <input id="name-box" value="A1" readonly>
+  <span id="fx-label">𝑓x</span>
+  <input id="formula-input" value="=IFERROR(VLOOKUP(A1,데이터!$A:$D,3,0),&quot;&quot;)" readonly>
+</div>
+
+<!-- 그리드 -->
+<div id="grid-area">
+  <div id="grid-wrapper">
+    <div class="col-header-row" id="col-header-row">
+      <div class="corner-cell"></div>
+    </div>
+    <div id="grid-rows"></div>
+  </div>
+</div>
+
+<!-- 시트 탭 -->
+<div id="sheet-bar">
+  <div class="sheet-tab active" data-key="easy">보고서</div>
+  <div class="sheet-tab" data-key="medium">원본데이터</div>
+  <div class="sheet-tab" data-key="hard">차트분석</div>
+  <div class="sheet-add">⊕</div>
+</div>
+
+<!-- 상태 바 -->
+<div id="status-bar">
+  <span id="status-text">준비</span>
+  <span id="stats-text">합계: 0 &nbsp; 평균: 0 &nbsp; 개수: 0</span>
+</div>
+
+<!-- 게임 결과 팝업 -->
+<div class="modal-overlay" id="overlay">
+  <div id="popup">
+    <h2 id="popup-title">💣 오류 발생!</h2>
+    <p id="popup-msg">순환 참조가 감지되었습니다.</p>
+    <p id="popup-time"></p>
+    <div id="nick-area">
+      <label for="nick-input">📝 닉네임을 입력하고 랭킹에 등록하세요</label>
+      <input id="nick-input" type="text" maxlength="12" placeholder="닉네임 (최대 12자)">
+    </div>
+    <div class="popup-btns">
+      <button id="rank-submit-btn">🏆 랭킹에 올리기</button>
+      <button id="popup-btn">새 시트 열기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 랭킹 모달 -->
+<div class="modal-overlay" id="rank-overlay">
+  <div id="rank-modal">
+    <div id="rank-modal-header">
+      <span>🏆 지뢰찾기 랭킹 — 업무보고.xlsx</span>
+      <button id="rank-close-btn">✕</button>
+    </div>
+    <div id="rank-tabs">
+      <div class="rank-tab active" data-key="easy">📄 보고서 (쉬움)</div>
+      <div class="rank-tab" data-key="medium">📊 원본데이터 (보통)</div>
+      <div class="rank-tab" data-key="hard">📈 차트분석 (어려움)</div>
+    </div>
+    <div id="rank-body">
+      <div id="rank-empty">아직 기록이 없습니다.<br>게임을 클리어하고 첫 번째 기록을 남겨보세요! 🎯</div>
+      <table id="rank-table" style="display:none">
+        <thead><tr><th>순위</th><th>닉네임</th><th>기록</th><th>날짜</th></tr></thead>
+        <tbody id="rank-tbody"></tbody>
+      </table>
+    </div>
+    <div id="rank-footer">상위 10개 기록만 표시됩니다 &nbsp;|&nbsp; 로컬 저장</div>
+  </div>
+</div>
+
+<script>
+// ── 파일명 동적 생성 ──
+function currentQuarterLabel() {
+  const now = new Date();
+  const q = Math.ceil((now.getMonth() + 1) / 3);
+  return `${now.getFullYear()}Q${q}`;
+}
+const FILE_NAME = `업무보고_${currentQuarterLabel()}.xlsx`;
+document.title = `${FILE_NAME} - Microsoft Excel`;
+document.querySelector('#title-bar span').textContent = `${FILE_NAME} - Microsoft Excel`;
+document.querySelector('#rank-modal-header span').textContent = `🏆 지뢰찾기 랭킹 — ${FILE_NAME}`;
+
+// ── 상수 ──
+const COL_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEF';
+const NUM_COLORS  = ['','#0000cc','#007700','#cc0000','#000099','#990000','#007777','#000','#777'];
+
+const DIFFICULTIES = {
+  easy:   { rows: 8,  cols: 8,  mines: 10 },
+  medium: { rows: 16, cols: 16, mines: 40 },
+  hard:   { rows: 30, cols: 16, mines: 99 },
+};
+
+// 엑셀풍 가짜 수식들
+const FAKE_FORMULAS = [
+  r => `=IFERROR(VLOOKUP($A${r},데이터!$A:$D,3,0),"")`,
+  (r,c) => `=SUMIF($A$1:$A$100,${COL_LETTERS[c]}${r},$B$1:$B$100)`,
+  r => `=IF(AND(B${r}>0,C${r}<1000),"정상","검토필요")`,
+  (r,c) => `=INDEX(원본데이터!$B:$B,MATCH(${COL_LETTERS[c]}${r},원본데이터!$A:$A,0))`,
+  r => `=ROUND(AVERAGE(B${r}:G${r}),2)`,
+  (r,c) => `=COUNTIF($A$1:${COL_LETTERS[c]}${r},">"&MEDIAN($A$1:$A$100))`,
+  r => `=TEXT(B${r},"#,##0")&" 원"`,
+  r => `=DATEDIF(A${r},TODAY(),"D")&"일"`,
+];
+
+// ── 게임 상태 ──
+let currentKey = 'easy';
+let cfg, board, revealed, flagged;
+let gameOver, gameWon, firstClick;
+let minesLeft, revealedCount;
+let startTime, timerInterval;
+let selectedR = 0, selectedC = 0;
+
+const TAB_LABELS = {
+  easy:   '보고서 — 기초 집계 (8×8)',
+  medium: '원본데이터 — 일반 분석 (16×16)',
+  hard:   '차트분석 — 고급 분석 (16×30)',
+};
+
+function pad3(n) { return String(Math.min(999, Math.max(0, n))).padStart(3, '0'); }
+
+function cellId(r, c) { return `c${r}_${c}`; }
+
+function fakeFormula(r, c) {
+  const fn = FAKE_FORMULAS[(r * 7 + c * 11) % FAKE_FORMULAS.length];
+  return fn(r + 1, c);
+}
+
+// ── 게임 초기화 ──
+function initGame(key) {
+  if (key) currentKey = key;
+  cfg = DIFFICULTIES[currentKey];
+
+  // 탭 활성화 & 레이블 업데이트
+  document.querySelectorAll('.sheet-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.key === currentKey);
+  });
+  document.getElementById('difficulty-label').textContent = TAB_LABELS[currentKey];
+
+  gameOver = gameWon = false;
+  firstClick = true;
+  minesLeft = cfg.mines;
+  revealedCount = 0;
+
+  board    = Array.from({length: cfg.rows}, () => Array(cfg.cols).fill(0));
+  revealed = Array.from({length: cfg.rows}, () => Array(cfg.cols).fill(false));
+  flagged  = Array.from({length: cfg.rows}, () => Array(cfg.cols).fill(false));
+
+  if (timerInterval) clearInterval(timerInterval);
+  startTime = null;
+
+  document.getElementById('mine-counter').textContent = pad3(minesLeft);
+  document.getElementById('timer-counter').textContent = '000';
+  document.getElementById('status-text').textContent = '준비';
+  document.getElementById('formula-input').value = '=IFERROR(VLOOKUP(A1,데이터!$A:$D,3,0),"")';
+  document.getElementById('name-box').value = 'A1';
+
+  buildDOM();
+  updateStats();
+}
+
+// ── DOM 빌드 ──
+function buildDOM() {
+  // 열 헤더
+  const hdr = document.getElementById('col-header-row');
+  hdr.innerHTML = '<div class="corner-cell"></div>';
+  for (let c = 0; c < cfg.cols; c++) {
+    const th = document.createElement('div');
+    th.className = 'col-header';
+    th.id = `ch${c}`;
+    th.textContent = COL_LETTERS[c];
+    hdr.appendChild(th);
+  }
+
+  // 행 + 셀
+  const rows = document.getElementById('grid-rows');
+  rows.innerHTML = '';
+
+  for (let r = 0; r < cfg.rows; r++) {
+    const row = document.createElement('div');
+    row.className = 'grid-row';
+
+    const rh = document.createElement('div');
+    rh.className = 'row-header';
+    rh.id = `rh${r}`;
+    rh.textContent = r + 1;
+    row.appendChild(rh);
+
+    for (let c = 0; c < cfg.cols; c++) {
+      const cell = document.createElement('div');
+      cell.className = 'cell hidden';
+      cell.id = cellId(r, c);
+      cell.dataset.r = r;
+      cell.dataset.c = c;
+      row.appendChild(cell);
+    }
+    rows.appendChild(row);
+  }
+
+  // 이벤트 위임 (단일 리스너)
+  rows.addEventListener('click',       onCellClick);
+  rows.addEventListener('contextmenu', onCellRightClick);
+  rows.addEventListener('mouseover',   onCellHover);
+  rows.addEventListener('dblclick',    onCellDblClick);
+}
+
+function getCell(r, c) { return document.getElementById(cellId(r, c)); }
+
+function targetCell(e) {
+  const el = e.target.closest('.cell');
+  if (!el) return null;
+  return { el, r: +el.dataset.r, c: +el.dataset.c };
+}
+
+// ── 이벤트 핸들러 ──
+function onCellClick(e) {
+  const t = targetCell(e);
+  if (!t) return;
+  const { r, c } = t;
+  if (gameOver || gameWon || flagged[r][c]) return;
+  if (revealed[r][c]) { chordReveal(r, c); return; }
+
+  selectCell(r, c);
+
+  if (firstClick) {
+    firstClick = false;
+    placeMines(r, c);
+    startTimer();
+  }
+
+  if (board[r][c] === -1) { triggerMine(r, c); return; }
+
+  floodReveal(r, c);
+  checkWin();
+  renderAll();
+  updateStats();
+}
+
+function onCellRightClick(e) {
+  e.preventDefault();
+  const t = targetCell(e);
+  if (!t) return;
+  const { r, c } = t;
+  if (gameOver || gameWon || revealed[r][c]) return;
+  selectCell(r, c);
+  toggleFlag(r, c);
+}
+
+function onCellDblClick(e) {
+  const t = targetCell(e);
+  if (!t) return;
+  chordReveal(t.r, t.c);
+}
+
+function onCellHover(e) {
+  const t = targetCell(e);
+  if (!t || gameOver || gameWon) return;
+  const { r, c } = t;
+  const label = COL_LETTERS[c] + (r + 1);
+  document.getElementById('name-box').value = label;
+
+  if (revealed[r][c]) {
+    document.getElementById('formula-input').value =
+      board[r][c] > 0 ? `=${board[r][c]}` : '';
+  } else {
+    document.getElementById('formula-input').value = fakeFormula(r, c);
+  }
+
+  // 열/행 헤더 강조
+  document.querySelectorAll('.col-header').forEach(el => el.classList.remove('hl'));
+  document.querySelectorAll('.row-header').forEach(el => el.classList.remove('hl'));
+  const ch = document.getElementById(`ch${c}`);
+  const rh = document.getElementById(`rh${r}`);
+  if (ch) ch.classList.add('hl');
+  if (rh) rh.classList.add('hl');
+}
+
+// ── 셀 선택 ──
+function selectCell(r, c) {
+  const prev = getCell(selectedR, selectedC);
+  if (prev) prev.classList.remove('selected');
+  selectedR = r; selectedC = c;
+  const cur = getCell(r, c);
+  if (cur) cur.classList.add('selected');
+  document.getElementById('name-box').value = COL_LETTERS[c] + (r + 1);
+}
+
+// ── 지뢰 배치 ──
+function placeMines(er, ec) {
+  let placed = 0;
+  const total = cfg.rows * cfg.cols;
+  while (placed < cfg.mines) {
+    const idx = Math.floor(Math.random() * total);
+    const r = Math.floor(idx / cfg.cols);
+    const c = idx % cfg.cols;
+    if (board[r][c] !== -1 && (Math.abs(r - er) > 1 || Math.abs(c - ec) > 1)) {
+      board[r][c] = -1;
+      placed++;
+    }
+  }
+  for (let r = 0; r < cfg.rows; r++) {
+    for (let c = 0; c < cfg.cols; c++) {
+      if (board[r][c] !== -1) {
+        let n = 0;
+        eachNeighbor(r, c, (nr, nc) => { if (board[nr][nc] === -1) n++; });
+        board[r][c] = n;
+      }
+    }
+  }
+}
+
+function eachNeighbor(r, c, fn) {
+  for (let dr = -1; dr <= 1; dr++)
+    for (let dc = -1; dc <= 1; dc++) {
+      if (!dr && !dc) continue;
+      const nr = r + dr, nc = c + dc;
+      if (nr >= 0 && nr < cfg.rows && nc >= 0 && nc < cfg.cols) fn(nr, nc);
+    }
+}
+
+// ── 게임 로직 ──
+function floodReveal(r, c) {
+  if (r < 0 || r >= cfg.rows || c < 0 || c >= cfg.cols) return;
+  if (revealed[r][c] || flagged[r][c]) return;
+  revealed[r][c] = true;
+  revealedCount++;
+  if (board[r][c] === 0) eachNeighbor(r, c, floodReveal);
+}
+
+function toggleFlag(r, c) {
+  flagged[r][c] = !flagged[r][c];
+  minesLeft += flagged[r][c] ? -1 : 1;
+  document.getElementById('mine-counter').textContent = pad3(minesLeft);
+  renderCell(r, c);
+  updateStats();
+}
+
+function chordReveal(r, c) {
+  if (!revealed[r][c] || board[r][c] <= 0) return;
+  let flagCnt = 0;
+  eachNeighbor(r, c, (nr, nc) => { if (flagged[nr][nc]) flagCnt++; });
+  if (flagCnt !== board[r][c]) return;
+
+  let hitMine = false;
+  eachNeighbor(r, c, (nr, nc) => {
+    if (!revealed[nr][nc] && !flagged[nr][nc]) {
+      if (board[nr][nc] === -1) { hitMine = true; triggerMine(nr, nc); }
+      else floodReveal(nr, nc);
+    }
+  });
+  if (!hitMine) { checkWin(); renderAll(); updateStats(); }
+}
+
+function triggerMine(hitR, hitC) {
+  gameOver = true;
+  if (timerInterval) clearInterval(timerInterval);
+
+  for (let r = 0; r < cfg.rows; r++)
+    for (let c = 0; c < cfg.cols; c++)
+      if (board[r][c] === -1) revealed[r][c] = true;
+
+  renderAll();
+
+  const hitEl = getCell(hitR, hitC);
+  if (hitEl) { hitEl.className = 'cell mine-hit'; hitEl.textContent = '💥'; }
+
+  document.getElementById('status-text').textContent = '오류: 순환 참조가 감지되었습니다';
+  document.getElementById('formula-input').value = '#REF! — 지뢰를 밟았습니다';
+
+  const elapsed = startTime ? Math.floor((Date.now() - startTime) / 1000) : 0;
+  showPopup(false, elapsed);
+}
+
+function checkWin() {
+  if (revealedCount >= cfg.rows * cfg.cols - cfg.mines) {
+    gameWon = true;
+    if (timerInterval) clearInterval(timerInterval);
+
+    for (let r = 0; r < cfg.rows; r++)
+      for (let c = 0; c < cfg.cols; c++)
+        if (board[r][c] === -1 && !flagged[r][c]) { flagged[r][c] = true; }
+
+    minesLeft = 0;
+    document.getElementById('mine-counter').textContent = '000';
+    document.getElementById('status-text').textContent = '✓ 분석 완료 — 모든 항목 검토됨';
+    document.getElementById('formula-input').textContent = '=IF(TRUE,"🎉 모든 지뢰 제거 완료!","")';
+
+    const elapsed = startTime ? Math.floor((Date.now() - startTime) / 1000) : 0;
+    showPopup(true, elapsed);
+  }
+}
+
+// ── 렌더링 ──
+function renderCell(r, c) {
+  const el = getCell(r, c);
+  if (!el) return;
+
+  el.textContent = '';
+  el.className = 'cell';
+  if (el.querySelector('div')) el.innerHTML = '';
+  el.style.color = '';
+  el.style.fontSize = '';
+
+  const isSelected = (r === selectedR && c === selectedC);
+
+  if (flagged[r][c] && !revealed[r][c]) {
+    el.classList.add('flagged');
+    if (gameOver && board[r][c] !== -1) el.classList.add('wrong-flag');
+  } else if (revealed[r][c]) {
+    el.classList.add('revealed');
+    if (board[r][c] === -1) {
+      el.classList.add('mine');
+      el.textContent = '#VALUE!';
+    } else if (board[r][c] > 0) {
+      el.style.color = NUM_COLORS[board[r][c]];
+      el.style.fontWeight = 'bold';
+      el.textContent = board[r][c];
+    }
+    // 0 = 빈 흰 셀
+  } else {
+    el.classList.add('hidden');
+  }
+
+  if (isSelected) el.classList.add('selected');
+}
+
+function renderAll() {
+  for (let r = 0; r < cfg.rows; r++)
+    for (let c = 0; c < cfg.cols; c++)
+      renderCell(r, c);
+}
+
+// ── 상태바 통계 ──
+function updateStats() {
+  const nums = [];
+  for (let r = 0; r < cfg.rows; r++)
+    for (let c = 0; c < cfg.cols; c++)
+      if (revealed[r][c] && board[r][c] > 0) nums.push(board[r][c]);
+
+  if (!nums.length) {
+    document.getElementById('stats-text').textContent = '합계: 0  평균: 0  개수: 0';
+  } else {
+    const sum = nums.reduce((a, b) => a + b, 0);
+    document.getElementById('stats-text').textContent =
+      `합계: ${sum}  평균: ${(sum / nums.length).toFixed(2)}  개수: ${nums.length}`;
+  }
+}
+
+// ── 타이머 ──
+function startTimer() {
+  startTime = Date.now();
+  timerInterval = setInterval(() => {
+    const s = Math.floor((Date.now() - startTime) / 1000);
+    document.getElementById('timer-counter').textContent = pad3(s);
+  }, 200);
+}
+
+// ── 랭킹 ──
+const RANK_KEY = 'xl_minesweeper_ranks';
+
+function loadRanks() {
+  try { return JSON.parse(localStorage.getItem(RANK_KEY)) || { easy:[], medium:[], hard:[] }; }
+  catch { return { easy:[], medium:[], hard:[] }; }
+}
+
+function saveRank(key, nick, secs) {
+  const ranks = loadRanks();
+  const today = new Date();
+  const date = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+  ranks[key].push({ nick: nick.trim() || '익명', time: secs, date });
+  ranks[key].sort((a, b) => a.time - b.time);
+  ranks[key] = ranks[key].slice(0, 10);
+  localStorage.setItem(RANK_KEY, JSON.stringify(ranks));
+  return ranks[key].findIndex(r => r.time === secs && r.nick === (nick.trim() || '익명'));
+}
+
+function fmtTime(secs) {
+  const m = Math.floor(secs / 60), s = secs % 60;
+  return m > 0 ? `${m}분 ${s}초` : `${s}초`;
+}
+
+// 랭킹 모달 열기
+let rankActiveKey = 'easy';
+
+function openRanking(key) {
+  rankActiveKey = key || currentKey;
+  document.querySelectorAll('.rank-tab').forEach(t =>
+    t.classList.toggle('active', t.dataset.key === rankActiveKey));
+  renderRankTable(rankActiveKey);
+  document.getElementById('rank-overlay').classList.add('show');
+}
+
+function renderRankTable(key) {
+  const ranks = loadRanks()[key] || [];
+  const empty = document.getElementById('rank-empty');
+  const table = document.getElementById('rank-table');
+  const tbody = document.getElementById('rank-tbody');
+
+  if (!ranks.length) {
+    empty.style.display = ''; table.style.display = 'none'; return;
+  }
+  empty.style.display = 'none'; table.style.display = '';
+  tbody.innerHTML = ranks.map((r, i) => {
+    const medal = i === 0 ? '<span class="rank-gold">🥇</span>'
+                : i === 1 ? '<span class="rank-silver">🥈</span>'
+                : i === 2 ? '<span class="rank-bronze">🥉</span>'
+                : `${i+1}`;
+    return `<tr><td style="text-align:center">${medal}</td><td>${r.nick}</td><td>${fmtTime(r.time)}</td><td>${r.date}</td></tr>`;
+  }).join('');
+}
+
+// 랭킹 탭 클릭
+document.getElementById('rank-tabs').addEventListener('click', e => {
+  const tab = e.target.closest('.rank-tab[data-key]');
+  if (!tab) return;
+  rankActiveKey = tab.dataset.key;
+  document.querySelectorAll('.rank-tab').forEach(t =>
+    t.classList.toggle('active', t.dataset.key === rankActiveKey));
+  renderRankTable(rankActiveKey);
+});
+
+document.getElementById('rank-close-btn').addEventListener('click', () =>
+  document.getElementById('rank-overlay').classList.remove('show'));
+
+document.getElementById('rank-overlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('rank-overlay'))
+    document.getElementById('rank-overlay').classList.remove('show');
+});
+
+// 메뉴바 파일/보기 → 랭킹
+document.getElementById('menu-bar').addEventListener('click', e => {
+  const item = e.target.closest('[data-action="ranking"]');
+  if (item) openRanking(currentKey);
+});
+
+// ── 팝업 ──
+let lastWinSecs = 0;
+
+function showPopup(win, secs) {
+  lastWinSecs = secs;
+  const nickArea = document.getElementById('nick-area');
+  const rankBtn  = document.getElementById('rank-submit-btn');
+
+  if (win) {
+    document.getElementById('popup-title').textContent = '🎉 분석 완료!';
+    document.getElementById('popup-msg').innerHTML =
+      `모든 지뢰(${cfg.mines}개)를 성공적으로 검출했습니다. 엑셀 마스터!`;
+    document.getElementById('popup-time').textContent = `⏱ 소요 시간: ${fmtTime(secs)}`;
+    document.getElementById('nick-input').value = '';
+    nickArea.style.display = '';
+    rankBtn.style.display = '';
+  } else {
+    document.getElementById('popup-title').textContent = '💥 오류 발생!';
+    document.getElementById('popup-msg').innerHTML =
+      `순환 참조 오류 — 지뢰를 밟았습니다.<br>#REF! #VALUE! #BOOM!`;
+    document.getElementById('popup-time').textContent = `⏱ 소요 시간: ${fmtTime(secs)}`;
+    nickArea.style.display = 'none';
+    rankBtn.style.display = 'none';
+  }
+  document.getElementById('overlay').classList.add('show');
+}
+
+document.getElementById('rank-submit-btn').addEventListener('click', () => {
+  const nick = document.getElementById('nick-input').value.trim();
+  if (!nick) { document.getElementById('nick-input').focus(); return; }
+  saveRank(currentKey, nick, lastWinSecs);
+  document.getElementById('overlay').classList.remove('show');
+  openRanking(currentKey);
+});
+
+// Enter 키로도 등록
+document.getElementById('nick-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('rank-submit-btn').click();
+});
+
+document.getElementById('popup-btn').addEventListener('click', () => {
+  document.getElementById('overlay').classList.remove('show');
+  initGame();
+});
+
+document.getElementById('new-game-btn').addEventListener('click', () => initGame());
+
+// 시트 탭 → 난이도 전환 (이벤트 위임)
+document.getElementById('sheet-bar').addEventListener('click', e => {
+  const tab = e.target.closest('.sheet-tab[data-key]');
+  if (tab) initGame(tab.dataset.key);
+});
+
+// 컨텍스트 메뉴 전역 방지
+document.getElementById('grid-rows')?.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('contextmenu', e => {
+  if (e.target.closest('#grid-rows')) e.preventDefault();
+});
+
+// 키보드 지원
+document.addEventListener('keydown', e => {
+  if (e.key === 'F5' || (e.key === 'r' && e.ctrlKey)) { e.preventDefault(); initGame(); return; }
+  if (gameOver || gameWon) return;
+  const { r, c } = { r: selectedR, c: selectedC };
+  if (e.key === 'f' || e.key === 'F') { if (!revealed[r][c]) toggleFlag(r, c); return; }
+  if (e.key === ' ' || e.key === 'Enter') {
+    if (!revealed[r][c] && !flagged[r][c]) {
+      if (firstClick) { firstClick = false; placeMines(r, c); startTimer(); }
+      if (board[r][c] === -1) { triggerMine(r, c); }
+      else { floodReveal(r, c); checkWin(); renderAll(); updateStats(); }
+    }
+    return;
+  }
+  const moves = { ArrowUp:[-1,0], ArrowDown:[1,0], ArrowLeft:[0,-1], ArrowRight:[0,1] };
+  if (moves[e.key]) {
+    e.preventDefault();
+    const [dr, dc] = moves[e.key];
+    const nr = Math.max(0, Math.min(cfg.rows-1, r+dr));
+    const nc = Math.max(0, Math.min(cfg.cols-1, c+dc));
+    selectCell(nr, nc);
+    const label = COL_LETTERS[nc] + (nr+1);
+    document.getElementById('name-box').value = label;
+    document.getElementById('formula-input').value = fakeFormula(nr, nc);
+  }
+});
+
+// ── 시작 (기본: 보고서 = 쉬움) ──
+initGame('easy');
+</script>
+</body>
+</html>
