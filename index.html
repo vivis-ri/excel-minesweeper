@@ -1692,7 +1692,7 @@ function showPopup(win, secs) {
       `모든 지뢰(${cfg.mines}개)를 성공적으로 검출했습니다.<br>엑셀 마스터!`;
     document.getElementById('popup-time').textContent = `소요 시간: ${fmtTime(secs)}`;
     document.getElementById('nick-input').value = '';
-    nickArea.style.display = '';
+    nickArea.style.display = 'block';
     rankBtn.style.display = '';
   } else {
     document.getElementById('popup-title').textContent = '오류 — Microsoft Excel';
