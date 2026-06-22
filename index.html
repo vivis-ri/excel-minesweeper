@@ -696,6 +696,242 @@ body {
   border: 1px solid #1a5e38 !important; border-radius: 2px !important;
 }
 
+/* ══ WINDOWS 7 AERO 테마 ══ */
+[data-theme="win7"] {
+  background: linear-gradient(135deg, #1B3A5C 0%, #2D5A8E 40%, #0E2540 100%);
+  font-family: 'Segoe UI', 'Malgun Gothic', Arial, sans-serif;
+}
+[data-theme="win7"] #title-bar {
+  background: linear-gradient(180deg,
+    rgba(160,200,240,0.45) 0%, rgba(80,140,210,0.65) 35%,
+    rgba(30,80,160,0.85) 65%, rgba(15,55,130,0.95) 100%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(200,230,255,0.65);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.25);
+  min-height: 30px;
+}
+[data-theme="win7"] .xp-wbtn {
+  background: linear-gradient(180deg, rgba(130,190,250,0.55) 0%, rgba(60,130,210,0.5) 100%);
+  border: 1px solid rgba(100,160,220,0.5);
+  border-radius: 4px;
+  box-shadow: 0 0 4px rgba(100,160,255,0.3), inset 0 1px 0 rgba(255,255,255,0.3);
+}
+[data-theme="win7"] .xp-wbtn:hover {
+  background: linear-gradient(180deg, rgba(160,210,255,0.7) 0%, rgba(80,150,230,0.65) 100%);
+  box-shadow: 0 0 8px rgba(100,180,255,0.5);
+}
+[data-theme="win7"] .xp-wbtn-close {
+  background: linear-gradient(180deg, rgba(240,90,90,0.65) 0%, rgba(190,30,30,0.6) 100%);
+  border-color: rgba(200,70,70,0.5);
+}
+[data-theme="win7"] .xp-wbtn-close:hover {
+  background: linear-gradient(180deg, rgba(255,110,110,0.8) 0%, rgba(210,40,40,0.75) 100%);
+  box-shadow: 0 0 8px rgba(255,70,70,0.5);
+}
+[data-theme="win7"] #menu-bar {
+  background: linear-gradient(180deg, #F2F6FA 0%, #E5EDF5 100%);
+  border-bottom: 1px solid #BFD0DE;
+}
+[data-theme="win7"] .menu-item { color: #2A3A4A; font-family: 'Segoe UI', sans-serif; font-size: 12px; }
+[data-theme="win7"] .menu-item:hover { background: #CBE0F5; color: #0A3060; }
+[data-theme="win7"] .menu-item.active { background: #2E74C0; color: white; }
+[data-theme="win7"] #ribbon {
+  background: linear-gradient(180deg, #F6F9FD 0%, #E8EFF8 100%);
+  border-bottom: 2px solid #4A90D0;
+}
+[data-theme="win7"] .ribbon-btn { font-family: 'Segoe UI', sans-serif; color: #2A3A4A; }
+[data-theme="win7"] .ribbon-btn:hover { background: #C5DCF5; border-color: #7AB4E0; }
+[data-theme="win7"] .ribbon-select { border: 1px solid #9AB5CC; border-radius: 2px; font-family: 'Segoe UI', sans-serif; }
+[data-theme="win7"] .ribbon-label { font-family: 'Segoe UI', sans-serif; color: #3A4A5A; }
+[data-theme="win7"] #new-game-btn {
+  background: linear-gradient(180deg, #5CAEE8 0%, #2878C8 49%, #1A66B8 51%, #3A88D8 100%);
+  color: white; border: 1px solid #1858A0; border-radius: 3px;
+  font-family: 'Segoe UI', sans-serif;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.35);
+  box-shadow: 0 1px 3px rgba(0,60,150,0.3);
+}
+[data-theme="win7"] #new-game-btn:hover {
+  background: linear-gradient(180deg, #70BCEE 0%, #3888D8 49%, #2878C8 51%, #4898E0 100%);
+}
+[data-theme="win7"] #new-game-btn:active {
+  background: linear-gradient(180deg, #1868B8 0%, #2878C8 100%);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+}
+[data-theme="win7"] #mine-counter,
+[data-theme="win7"] #timer-counter,
+[data-theme="win7"] .mobile-counter {
+  color: #FF4040; background: #0C1828;
+  border: 1px solid #2A4A7A; border-radius: 2px;
+  padding: 2px 6px; font-family: 'Courier New', monospace;
+}
+[data-theme="win7"] #formula-bar { background: white; border: none; border-bottom: 1px solid #BFD0DE; }
+[data-theme="win7"] #name-box { border-right: 1px solid #BFD0DE; font-family: 'Segoe UI', sans-serif; }
+[data-theme="win7"] #fx-label { border-right-color: #BFD0DE; }
+[data-theme="win7"] #formula-input { font-family: 'Segoe UI', sans-serif; }
+[data-theme="win7"] #grid-area {
+  border: 1px solid #AABFD0; margin: 2px;
+  box-shadow: inset 0 1px 3px rgba(0,40,80,0.07);
+}
+[data-theme="win7"] .corner-cell,
+[data-theme="win7"] .col-header {
+  background: linear-gradient(180deg, #EBF1F8 0%, #DAE6F2 100%);
+  border-color: #BAC8D5; color: #3A4A5A; font-family: 'Segoe UI', sans-serif;
+}
+[data-theme="win7"] .row-header {
+  background: linear-gradient(90deg, #EBF1F8 0%, #E0EAF5 100%);
+  border-color: #BAC8D5; color: #3A4A5A; font-family: 'Segoe UI', sans-serif;
+}
+[data-theme="win7"] .col-header { border-bottom-width: 1px; }
+[data-theme="win7"] .row-header { border-right-width: 1px; }
+[data-theme="win7"] .col-header.hl { background: #C0D8F0; color: #1A4880; }
+[data-theme="win7"] .row-header.hl { background: #C0D8F0; color: #1A4880; }
+[data-theme="win7"] .cell { font-family: 'Segoe UI', sans-serif; border-color: #CCDAE6; }
+[data-theme="win7"] .cell.hidden {
+  background: linear-gradient(180deg, #E6EEF6 0%, #D5E2EE 100%);
+  border: 1px solid #B5C8D8;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.55);
+}
+[data-theme="win7"] .cell.hidden:hover {
+  background: linear-gradient(180deg, #D0E4F4 0%, #BEDAF2 100%);
+  border-color: #88B4D4;
+}
+[data-theme="win7"] .cell.flagged {
+  background: linear-gradient(180deg, #FFF7DC 0%, #F5E8B0 100%);
+  border: 1px solid #D4BE70;
+}
+[data-theme="win7"] .cell.flagged::after { border-color: transparent #CC2200 transparent transparent; }
+[data-theme="win7"] .cell.revealed { background: white; border: 1px solid #CCDAE6; }
+[data-theme="win7"] .cell.mine { background: #F0E0E0; border: 1px solid #C8A8A8; }
+[data-theme="win7"] .cell.mine-hit {
+  background: linear-gradient(180deg, #FF5050 0%, #CC0000 100%);
+  border: none;
+}
+[data-theme="win7"] .cell.wrong-flag { background: #F0D5D5; border: 1px solid #C8A0A0; }
+[data-theme="win7"] .cell.selected { outline-color: #2E74C0; }
+[data-theme="win7"] .n1 { color: #0044CC; }
+[data-theme="win7"] .n2 { color: #006600; }
+[data-theme="win7"] .n3 { color: #CC0000; }
+[data-theme="win7"] .n4 { color: #003399; }
+[data-theme="win7"] .n5 { color: #880000; }
+[data-theme="win7"] .n6 { color: #006666; }
+[data-theme="win7"] #sheet-bar {
+  background: linear-gradient(180deg, #DAE6F2 0%, #C8D8E8 100%);
+  border-top: 1px solid #A8C0D4;
+}
+[data-theme="win7"] .sheet-tab {
+  background: linear-gradient(180deg, #E5EEF7 0%, #D5E4F0 100%);
+  border: 1px solid #A8C0D4; border-bottom: none;
+  border-radius: 3px 3px 0 0; color: #445566;
+  font-family: 'Segoe UI', sans-serif;
+}
+[data-theme="win7"] .sheet-tab.active {
+  background: white; color: #1A4880; font-weight: bold;
+  border-top: 2px solid #2E74C0;
+}
+[data-theme="win7"] .sheet-tab:hover:not(.active) {
+  background: linear-gradient(180deg, #D0E4F4 0%, #BEDAF2 100%);
+}
+[data-theme="win7"] #status-bar {
+  background: linear-gradient(180deg, #3A80CC 0%, #2060B0 100%);
+  color: white; border-top: 1px solid #1A50A0; min-height: 22px;
+  font-family: 'Segoe UI', sans-serif;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.15);
+}
+[data-theme="win7"] #status-text,
+[data-theme="win7"] #stats-text { border: none; background: transparent; }
+[data-theme="win7"] #popup {
+  background: rgba(238,244,252,0.97);
+  border: 1px solid rgba(90,145,210,0.55);
+  border-radius: 6px;
+  box-shadow: 0 8px 32px rgba(0,40,100,0.45), 0 0 0 1px rgba(200,220,255,0.25);
+}
+[data-theme="win7"] .xp-dialog-title {
+  background: linear-gradient(180deg,
+    rgba(160,205,250,0.45) 0%, rgba(70,130,210,0.7) 50%, rgba(25,75,155,0.9) 100%);
+  border-top: 1px solid rgba(200,230,255,0.65);
+  border-top-left-radius: 5px; border-top-right-radius: 5px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+  font-family: 'Segoe UI', sans-serif; min-height: 30px;
+}
+[data-theme="win7"] .xp-dialog-body { background: transparent; font-family: 'Segoe UI', sans-serif; }
+[data-theme="win7"] .xp-dialog-sep { background: #A8C0D8; border-bottom: 1px solid rgba(255,255,255,0.55); }
+[data-theme="win7"] #popup-msg { color: #1A2A3A; font-size: 12px; font-family: 'Segoe UI', sans-serif; }
+[data-theme="win7"] #popup-time { color: #1A5090; font-size: 12px; font-family: 'Segoe UI', sans-serif; }
+[data-theme="win7"] .popup-btns button {
+  background: linear-gradient(180deg, #5CAEE8 0%, #2878C8 49%, #1A66B8 51%, #3A88D8 100%);
+  border: 1px solid #1858A0; border-radius: 4px;
+  color: white; padding: 5px 18px; font-family: 'Segoe UI', sans-serif;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+}
+[data-theme="win7"] .popup-btns button:hover {
+  background: linear-gradient(180deg, #70BCEE 0%, #3888D8 49%, #2878C8 51%, #4898E0 100%);
+}
+[data-theme="win7"] #nick-input {
+  border: 1px solid #9AB5CC; border-radius: 3px;
+  padding: 4px 8px; font-family: 'Segoe UI', sans-serif;
+}
+[data-theme="win7"] #nick-input:focus { border-color: #2E74C0; box-shadow: 0 0 0 2px rgba(46,116,192,0.2); }
+[data-theme="win7"] #nick-area label { font-family: 'Segoe UI', sans-serif; color: #2A3A4A; }
+[data-theme="win7"] #rank-modal {
+  background: rgba(238,244,252,0.97);
+  border: 1px solid rgba(90,145,210,0.55);
+  border-radius: 6px;
+  box-shadow: 0 8px 32px rgba(0,40,100,0.45);
+}
+[data-theme="win7"] #rank-modal-header {
+  background: linear-gradient(180deg,
+    rgba(160,205,250,0.45) 0%, rgba(25,75,155,0.9) 100%);
+  border-top: 1px solid rgba(200,230,255,0.65);
+  border-top-left-radius: 5px; border-top-right-radius: 5px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+  font-family: 'Segoe UI', sans-serif; min-height: 30px; padding: 4px 10px;
+}
+[data-theme="win7"] #rank-modal-header button {
+  background: linear-gradient(180deg, rgba(240,90,90,0.65) 0%, rgba(190,30,30,0.6) 100%);
+  border: 1px solid rgba(180,50,50,0.5); border-radius: 3px;
+}
+[data-theme="win7"] #rank-tabs { background: #EBF1F8; border-bottom: 1px solid #A8C0D4; padding: 3px 4px 0; gap: 2px; }
+[data-theme="win7"] .rank-tab {
+  background: linear-gradient(180deg, #E2EBF5 0%, #D5E3EF 100%);
+  border: 1px solid #A8C0D4; border-bottom: none;
+  border-radius: 3px 3px 0 0; color: #445566;
+  font-family: 'Segoe UI', sans-serif; padding: 4px 14px;
+}
+[data-theme="win7"] .rank-tab:hover:not(.active) { background: linear-gradient(180deg, #C8DCF0 0%, #B8D0E8 100%); }
+[data-theme="win7"] .rank-tab.active {
+  background: white; color: #1A4880; font-weight: bold;
+  border-top: 2px solid #2E74C0; margin-bottom: -1px; padding-bottom: 5px;
+}
+[data-theme="win7"] #rank-body { background: white; }
+[data-theme="win7"] #rank-footer { background: #EBF1F8; border-top: 1px solid #BAD0E0; color: #556677; font-family: 'Segoe UI', sans-serif; }
+[data-theme="win7"] #rank-table th { background: #E2EBF5; border-color: #BACAD8; font-family: 'Segoe UI', sans-serif; color: #3A4A5A; }
+[data-theme="win7"] #rank-table td { border-color: #DDEAF4; font-family: 'Segoe UI', sans-serif; }
+[data-theme="win7"] #rank-table tr:nth-child(even) td { background: #F2F7FC; }
+[data-theme="win7"] #rank-table tr.my-rank td { background: #DDEEF8; color: #1A4880; }
+[data-theme="win7"] #rank-empty { color: #7A8A9A; font-family: 'Segoe UI', sans-serif; }
+[data-theme="win7"] #mobile-toolbar {
+  background: linear-gradient(180deg, #EEF4FA 0%, #DDE8F4 100%);
+  border-bottom: 2px solid #4A90D0;
+}
+[data-theme="win7"] .mobile-counter { color: #FF4040; background: #0C1828; border: 1px solid #2A4A7A; border-radius: 2px; }
+[data-theme="win7"] #mobile-hint { color: #556677; font-family: 'Segoe UI', sans-serif; }
+[data-theme="win7"] #mobile-new-game-btn {
+  background: linear-gradient(180deg, #5CAEE8 0%, #2878C8 49%, #1A66B8 51%, #3A88D8 100%) !important;
+  color: white !important; border: 1px solid #1858A0 !important; border-radius: 3px !important;
+}
+[data-theme="win7"] #theme-dropdown {
+  background: rgba(238,244,252,0.97);
+  border: 1px solid rgba(90,145,210,0.5);
+  border-radius: 4px;
+  box-shadow: 0 4px 14px rgba(0,40,100,0.3);
+  backdrop-filter: blur(4px);
+}
+[data-theme="win7"] .theme-option { font-family: 'Segoe UI', sans-serif; color: #2A3A4A; }
+[data-theme="win7"] .theme-option:hover { background: #C5DCF5; }
+[data-theme="win7"] .theme-option.active { background: #B5CDE8; font-weight: bold; color: #1A4880; }
+
 /* ── 테마 드롭다운 공통 ── */
 #theme-menu-wrap { margin-left: auto; position: relative; }
 #theme-dropdown {
@@ -727,7 +963,7 @@ body {
 [data-theme="excel"] .theme-option.active { background: #d9ead3; font-weight: bold; }
 </style>
 </head>
-<body data-theme="xp">
+<body data-theme="excel">
 
 <!-- 타이틀 바 -->
 <div id="title-bar">
@@ -753,8 +989,9 @@ body {
   <div id="theme-menu-wrap">
     <div class="menu-item" id="theme-toggle" style="cursor:pointer;white-space:nowrap;" title="테마 전환">🎨 테마 ▾</div>
     <div id="theme-dropdown">
-      <div class="theme-option" data-theme-pick="xp">🖥️ Windows XP</div>
       <div class="theme-option" data-theme-pick="excel">📊 스프레드시트</div>
+      <div class="theme-option" data-theme-pick="xp">🖥️ Windows XP</div>
+      <div class="theme-option" data-theme-pick="win7">🪟 Windows 7</div>
     </div>
   </div>
 </div>
@@ -1565,7 +1802,7 @@ document.addEventListener('click', () => {
 });
 
 // 저장된 테마 불러오기
-applyTheme(localStorage.getItem('gameTheme') || 'xp');
+applyTheme(localStorage.getItem('gameTheme') || 'excel');
 
 // ── 시작 (기본: 보고서 = 쉬움) ──
 initGame('easy');
