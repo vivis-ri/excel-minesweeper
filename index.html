@@ -1207,7 +1207,8 @@ let minesLeft, revealedCount;
 let startTime, timerInterval;
 let selectedR = 0, selectedC = 0;
 let suppressNextClick = false;
-let lastTouchTime = 0;
+let touchActive = false;
+let touchEndTimer = null;
 
 const TAB_LABELS = {
   easy:   '보고서 — 기초 집계 (8×8)',
@@ -1307,7 +1308,8 @@ function buildDOM() {
   // 터치 long-press → 깃발
   let lpTimer = null, lpMoved = false;
   rows.addEventListener('touchstart', e => {
-    lastTouchTime = Date.now();
+    touchActive = true;
+    if (touchEndTimer) { clearTimeout(touchEndTimer); touchEndTimer = null; }
     const t = targetCell(e);
     if (!t) return;
     lpMoved = false;
@@ -1328,6 +1330,9 @@ function buildDOM() {
   }, { passive: true });
   rows.addEventListener('touchend', () => {
     if (lpTimer) { clearTimeout(lpTimer); lpTimer = null; }
+    // 손을 뗀 직후 늦게 도착하는 네이티브 contextmenu까지 무시하도록 잠시 유지
+    if (touchEndTimer) clearTimeout(touchEndTimer);
+    touchEndTimer = setTimeout(() => { touchActive = false; }, 700);
   }, { passive: true });
 }
 
@@ -1367,8 +1372,9 @@ function onCellClick(e) {
 function onCellRightClick(e) {
   e.preventDefault();
   // 터치 long-press가 깃발을 처리하므로, 터치에서 파생된 contextmenu는 무시
-  // (이걸 막지 않으면 long-press 타이머가 깃발을 켠 직후 contextmenu가 다시 꺼버린다)
-  if (Date.now() - lastTouchTime < 1000) return;
+  // (이걸 막지 않으면 long-press 타이머가 깃발을 켠 직후 contextmenu가 다시 꺼버린다.
+  //  누르는 시간이 길어도 동작하도록 시간 비교 대신 터치 활성 상태로 판단)
+  if (touchActive) return;
   const t = targetCell(e);
   if (!t) return;
   const { r, c } = t;
