@@ -927,28 +927,40 @@ function startTimer() {
   }, 200);
 }
 
-// ── 랭킹 ──
-const RANK_KEY = 'xl_minesweeper_ranks';
-
-function loadRanks() {
-  try { return JSON.parse(localStorage.getItem(RANK_KEY)) || { easy:[], medium:[], hard:[] }; }
-  catch { return { easy:[], medium:[], hard:[] }; }
-}
-
-function saveRank(key, nick, secs) {
-  const ranks = loadRanks();
-  const today = new Date();
-  const date = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
-  ranks[key].push({ nick: nick.trim() || '익명', time: secs, date });
-  ranks[key].sort((a, b) => a.time - b.time);
-  ranks[key] = ranks[key].slice(0, 10);
-  localStorage.setItem(RANK_KEY, JSON.stringify(ranks));
-  return ranks[key].findIndex(r => r.time === secs && r.nick === (nick.trim() || '익명'));
-}
+// ── 랭킹 (Supabase) ──
+const SB_URL = 'https://bduupwephucurckhtxuk.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJkdXVwd2VwaHVjdXJja2h0eHVrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIxMDgzMjcsImV4cCI6MjA5NzY4NDMyN30.mmwsm4qnhAQ0TAROrOcNlaVNflFjQP5j3IIBYchh83Y';
+const SB_HEADERS = {
+  'apikey': SB_KEY,
+  'Authorization': `Bearer ${SB_KEY}`,
+  'Content-Type': 'application/json',
+};
 
 function fmtTime(secs) {
   const m = Math.floor(secs / 60), s = secs % 60;
   return m > 0 ? `${m}분 ${s}초` : `${s}초`;
+}
+
+function fmtDate(iso) {
+  const d = new Date(iso);
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+
+async function saveRank(key, nick, secs) {
+  await fetch(`${SB_URL}/rest/v1/rankings`, {
+    method: 'POST',
+    headers: { ...SB_HEADERS, 'Prefer': 'return=minimal' },
+    body: JSON.stringify({ difficulty: key, nick: nick || '익명', time_sec: secs }),
+  });
+}
+
+async function fetchRanks(key) {
+  const res = await fetch(
+    `${SB_URL}/rest/v1/rankings?difficulty=eq.${key}&order=time_sec.asc&limit=10&select=nick,time_sec,created_at`,
+    { headers: SB_HEADERS }
+  );
+  if (!res.ok) return [];
+  return await res.json();
 }
 
 // 랭킹 모달 열기
@@ -958,26 +970,33 @@ function openRanking(key) {
   rankActiveKey = key || currentKey;
   document.querySelectorAll('.rank-tab').forEach(t =>
     t.classList.toggle('active', t.dataset.key === rankActiveKey));
-  renderRankTable(rankActiveKey);
   document.getElementById('rank-overlay').classList.add('show');
+  renderRankTable(rankActiveKey);
 }
 
-function renderRankTable(key) {
-  const ranks = loadRanks()[key] || [];
+async function renderRankTable(key) {
   const empty = document.getElementById('rank-empty');
   const table = document.getElementById('rank-table');
   const tbody = document.getElementById('rank-tbody');
 
-  if (!ranks.length) {
-    empty.style.display = ''; table.style.display = 'none'; return;
+  empty.textContent = '불러오는 중...';
+  empty.style.display = '';
+  table.style.display = 'none';
+
+  const rows = await fetchRanks(key);
+
+  if (!rows.length) {
+    empty.textContent = '아직 기록이 없습니다.\n게임을 클리어하고 첫 번째 기록을 남겨보세요! 🎯';
+    return;
   }
-  empty.style.display = 'none'; table.style.display = '';
-  tbody.innerHTML = ranks.map((r, i) => {
+  empty.style.display = 'none';
+  table.style.display = '';
+  tbody.innerHTML = rows.map((r, i) => {
     const medal = i === 0 ? '<span class="rank-gold">🥇</span>'
                 : i === 1 ? '<span class="rank-silver">🥈</span>'
                 : i === 2 ? '<span class="rank-bronze">🥉</span>'
                 : `${i+1}`;
-    return `<tr><td style="text-align:center">${medal}</td><td>${r.nick}</td><td>${fmtTime(r.time)}</td><td>${r.date}</td></tr>`;
+    return `<tr><td style="text-align:center">${medal}</td><td>${r.nick}</td><td>${fmtTime(r.time_sec)}</td><td>${fmtDate(r.created_at)}</td></tr>`;
   }).join('');
 }
 
@@ -999,7 +1018,7 @@ document.getElementById('rank-overlay').addEventListener('click', e => {
     document.getElementById('rank-overlay').classList.remove('show');
 });
 
-// 메뉴바 파일/보기 → 랭킹
+// 메뉴바 데이터 탭 → 랭킹
 document.getElementById('menu-bar').addEventListener('click', e => {
   const item = e.target.closest('[data-action="ranking"]');
   if (item) openRanking(currentKey);
@@ -1032,10 +1051,15 @@ function showPopup(win, secs) {
   document.getElementById('overlay').classList.add('show');
 }
 
-document.getElementById('rank-submit-btn').addEventListener('click', () => {
+document.getElementById('rank-submit-btn').addEventListener('click', async () => {
   const nick = document.getElementById('nick-input').value.trim();
   if (!nick) { document.getElementById('nick-input').focus(); return; }
-  saveRank(currentKey, nick, lastWinSecs);
+  const btn = document.getElementById('rank-submit-btn');
+  btn.textContent = '등록 중...';
+  btn.disabled = true;
+  await saveRank(currentKey, nick, lastWinSecs);
+  btn.textContent = '🏆 랭킹에 올리기';
+  btn.disabled = false;
   document.getElementById('overlay').classList.remove('show');
   openRanking(currentKey);
 });
