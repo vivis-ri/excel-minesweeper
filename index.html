@@ -1209,6 +1209,7 @@ let selectedR = 0, selectedC = 0;
 let suppressNextClick = false;
 let touchActive = false;
 let touchEndTimer = null;
+let lpHandled = false;
 
 const TAB_LABELS = {
   easy:   '보고서 — 기초 집계 (8×8)',
@@ -1321,13 +1322,15 @@ function bindGridEvents(rows) {
   let lpTimer = null, lpMoved = false;
   rows.addEventListener('touchstart', e => {
     touchActive = true;
+    lpHandled = false;
     if (touchEndTimer) { clearTimeout(touchEndTimer); touchEndTimer = null; }
     const t = targetCell(e);
     if (!t) return;
     lpMoved = false;
     const { r, c } = t;
     lpTimer = setTimeout(() => {
-      if (lpMoved) return;
+      if (lpMoved || lpHandled) return;   // 한 번의 길게 누르기당 단 한 번만 처리
+      lpHandled = true;
       suppressNextClick = true;
       if (!gameOver && !gameWon && !revealed[r][c]) {
         selectCell(r, c);
