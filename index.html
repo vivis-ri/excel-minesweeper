@@ -17,114 +17,161 @@
 <meta name="twitter:description" content="딱 봐도 엑셀인데 사실 지뢰찾기. 셀을 클릭해서 지뢰를 피하세요.">
 <meta name="twitter:image" content="https://vivis-ri.github.io/excel-minesweeper/preview.png">
 <style>
+/* ══ WINDOWS XP LUNA THEME ══ */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-  font-family: 'Calibri', 'Malgun Gothic', Arial, sans-serif;
-  font-size: 12px;
-  background: #c8c8c8;
+  font-family: Tahoma, 'MS Sans Serif', 'Malgun Gothic', Arial, sans-serif;
+  font-size: 11px;
+  background: linear-gradient(180deg, #5CA3E6 0%, #87C3F1 38%, #6AB44C 62%, #3D8F26 100%);
   user-select: none;
   overflow: hidden;
-  height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
 }
 
-/* ── 타이틀 바 ── */
+/* ── 타이틀 바 (XP Luna 파란 그라데이션) ── */
 #title-bar {
-  background: #217346;
+  background: linear-gradient(180deg,
+    #4B9CF5 0%, #2175E5 4%, #0C5EDB 8%,
+    #0A58D8 48%, #1268E2 52%, #1E78ED 90%, #0C5EDB 100%);
   color: white;
-  padding: 5px 10px;
+  padding: 3px 4px 3px 6px;
   display: flex;
   align-items: center;
   font-size: 12px;
-  min-height: 28px;
+  font-weight: bold;
+  font-family: Tahoma, sans-serif;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  min-height: 26px;
+  border-top: 1px solid #8AC0F8;
 }
-#title-bar .win-btns { margin-left: auto; display: flex; gap: 8px; opacity: .7; }
+#title-bar .win-btns {
+  margin-left: auto;
+  display: flex;
+  gap: 2px;
+}
+.xp-wbtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 21px; height: 19px;
+  background: linear-gradient(180deg, #4AADFF 0%, #1B7AE8 40%, #0B60D0 60%, #1870D8 100%);
+  border: 1px solid #1850A0;
+  border-radius: 3px;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  cursor: default;
+  text-shadow: none;
+}
+.xp-wbtn:hover { background: linear-gradient(180deg, #6ABFFF 0%, #2B8AF8 40%, #1B70E0 60%, #2880E8 100%); }
+.xp-wbtn-close {
+  background: linear-gradient(180deg, #F06060 0%, #C82020 40%, #A80000 60%, #C01818 100%);
+  border-color: #880000;
+}
+.xp-wbtn-close:hover { background: linear-gradient(180deg, #FF7070 0%, #E03030 40%, #B81010 60%, #D02020 100%); }
 
 /* ── 메뉴 바 ── */
 #menu-bar {
-  background: #f3f3f3;
-  border-bottom: 1px solid #d4d4d4;
+  background: #ECE9D8;
+  border-bottom: 1px solid #ACA899;
   display: flex;
   align-items: center;
   padding: 0;
 }
 .menu-item {
-  padding: 5px 10px;
+  padding: 4px 8px;
   cursor: default;
-  font-size: 12px;
-  color: #222;
+  font-size: 11px;
+  font-family: Tahoma, sans-serif;
+  color: #000;
   white-space: nowrap;
 }
-.menu-item:hover { background: #d9ead3; }
-.menu-item.active { background: #217346; color: white; }
+.menu-item:hover { background: #1660A7; color: white; }
+.menu-item.active { background: #1660A7; color: white; }
 
-/* ── 리본 ── */
+/* ── 리본 (XP 툴바) ── */
 #ribbon {
-  background: #f3f3f3;
-  border-bottom: 2px solid #217346;
-  padding: 4px 8px;
+  background: #ECE9D8;
+  border-bottom: 2px solid #ACA899;
+  padding: 3px 6px;
   display: flex;
   align-items: center;
   gap: 4px;
   flex-wrap: wrap;
-  min-height: 44px;
+  min-height: 38px;
 }
-.ribbon-sep { width: 1px; background: #ccc; height: 28px; margin: 0 4px; }
+.ribbon-sep { width: 1px; background: #ACA899; height: 22px; margin: 0 3px; }
 .ribbon-btn {
   border: 1px solid transparent;
   background: transparent;
-  padding: 2px 6px;
+  padding: 2px 5px;
   cursor: default;
-  font-size: 12px;
-  border-radius: 2px;
-  font-family: inherit;
-  color: #222;
-}
-.ribbon-btn:hover { background: #d9ead3; border-color: #b8d4b2; }
-.ribbon-select {
-  border: 1px solid #ccc;
-  background: white;
-  padding: 2px 4px;
   font-size: 11px;
-  font-family: inherit;
-  cursor: default;
-  border-radius: 2px;
+  font-family: Tahoma, sans-serif;
+  color: #000;
 }
-.ribbon-label { font-size: 11px; color: #555; }
+.ribbon-btn:hover { background: #C8DDF8; border-color: #6BA0D0; }
+.ribbon-select {
+  border: 2px solid;
+  border-color: #808080 #DFDFDF #DFDFDF #808080;
+  background: white;
+  padding: 1px 3px;
+  font-size: 11px;
+  font-family: Tahoma, sans-serif;
+}
+.ribbon-label { font-size: 11px; color: #000; font-family: Tahoma, sans-serif; }
 #new-game-btn {
-  background: #217346; color: white; border: 1px solid #1a5e38;
-  padding: 3px 10px; font-size: 11px; cursor: pointer; border-radius: 2px;
-  font-family: inherit;
+  background: #D4D0C8;
+  border: 2px solid;
+  border-color: #FFFFFF #808080 #808080 #FFFFFF;
+  padding: 2px 8px;
+  font-size: 11px;
+  cursor: pointer;
+  font-family: Tahoma, sans-serif;
+  color: #000;
 }
-#new-game-btn:hover { background: #1a5e38; }
-#mine-counter { font-size: 12px; font-weight: bold; color: #c00; background: #111; padding: 2px 6px; border-radius: 2px; letter-spacing: 1px; }
-#timer-counter { font-size: 12px; font-weight: bold; color: #c00; background: #111; padding: 2px 6px; border-radius: 2px; letter-spacing: 1px; }
+#new-game-btn:hover { background: #E4E0D8; }
+#new-game-btn:active { border-color: #808080 #FFFFFF #FFFFFF #808080; }
+#mine-counter {
+  font-size: 13px; font-weight: bold; color: #FF0000;
+  background: #111; padding: 1px 5px;
+  border: 2px solid; border-color: #808080 #DFDFDF #DFDFDF #808080;
+  letter-spacing: 1px; font-family: 'Courier New', monospace;
+}
+#timer-counter {
+  font-size: 13px; font-weight: bold; color: #FF0000;
+  background: #111; padding: 1px 5px;
+  border: 2px solid; border-color: #808080 #DFDFDF #DFDFDF #808080;
+  letter-spacing: 1px; font-family: 'Courier New', monospace;
+}
 
 /* ── 수식 입력줄 ── */
 #formula-bar {
   display: flex;
   align-items: center;
   background: white;
-  border-bottom: 1px solid #d4d4d4;
-  padding: 2px 0;
-  min-height: 26px;
+  border-bottom: 2px solid;
+  border-color: #808080 #DFDFDF #DFDFDF #808080;
+  padding: 1px 0;
+  min-height: 22px;
 }
 #name-box {
   width: 80px; min-width: 80px;
-  border: none; border-right: 1px solid #d4d4d4;
-  padding: 2px 6px; font-size: 12px;
-  font-family: 'Calibri', Arial, sans-serif;
-  outline: none; text-align: center; background: white; color: #222;
+  border: none; border-right: 1px solid #808080;
+  padding: 1px 4px; font-size: 11px;
+  font-family: Tahoma, sans-serif;
+  outline: none; text-align: center; background: white; color: #000;
 }
 #fx-label {
-  padding: 0 8px; font-style: italic; color: #666; font-size: 13px;
-  border-right: 1px solid #d4d4d4;
+  padding: 0 6px; font-style: italic; color: #555; font-size: 12px;
+  border-right: 1px solid #ACA899;
 }
 #formula-input {
-  flex: 1; border: none; outline: none; padding: 2px 6px;
-  font-size: 12px; font-family: 'Calibri', Arial, sans-serif;
-  color: #222; background: white;
+  flex: 1; border: none; outline: none; padding: 1px 5px;
+  font-size: 11px; font-family: Tahoma, sans-serif;
+  color: #000; background: white;
 }
 
 /* ── 그리드 영역 ── */
@@ -133,6 +180,9 @@ body {
   overflow: auto;
   background: white;
   position: relative;
+  border: 2px solid;
+  border-color: #808080 #DFDFDF #DFDFDF #808080;
+  margin: 2px 2px 0;
 }
 #grid-wrapper {
   display: inline-block;
@@ -149,72 +199,73 @@ body {
 }
 .corner-cell {
   width: var(--row-h-w, 46px); min-width: var(--row-h-w, 46px);
-  height: var(--col-h, 20px);
-  background: #f3f3f3;
-  border-right: 1px solid #d4d4d4;
-  border-bottom: 1px solid #d4d4d4;
+  height: var(--col-h, 18px);
+  background: #D4D0C8;
+  border-right: 1px solid #808080;
+  border-bottom: 1px solid #808080;
 }
 .col-header {
   width: var(--cell-w, 64px); min-width: var(--cell-w, 64px);
-  height: var(--col-h, 20px);
-  background: #f3f3f3;
-  border-right: 1px solid #d4d4d4;
-  border-bottom: 1px solid #d4d4d4;
+  height: var(--col-h, 18px);
+  background: #D4D0C8;
+  border-right: 1px solid #808080;
+  border-bottom: 2px solid #808080;
   text-align: center;
-  line-height: var(--col-h, 20px);
+  line-height: var(--col-h, 18px);
   font-size: 11px;
-  color: #444;
+  color: #000;
+  font-family: Tahoma, sans-serif;
 }
-.col-header.hl { background: #d9ead3; color: #217346; font-weight: bold; }
+.col-header.hl { background: #C0D8F0; font-weight: bold; }
 
 /* ── 행 ── */
 .grid-row { display: flex; }
 .row-header {
   width: var(--row-h-w, 46px); min-width: var(--row-h-w, 46px);
-  height: var(--cell-h, 22px);
-  background: #f3f3f3;
-  border-right: 1px solid #d4d4d4;
-  border-bottom: 1px solid #d4d4d4;
+  height: var(--cell-h, 18px);
+  background: #D4D0C8;
+  border-right: 2px solid #808080;
+  border-bottom: 1px solid #808080;
   text-align: center;
-  line-height: var(--cell-h, 22px);
+  line-height: var(--cell-h, 18px);
   font-size: 11px;
-  color: #444;
+  color: #000;
   position: sticky;
   left: 0;
   z-index: 5;
+  font-family: Tahoma, sans-serif;
 }
-.row-header.hl { background: #d9ead3; color: #217346; font-weight: bold; }
+.row-header.hl { background: #C0D8F0; font-weight: bold; }
 
 /* ── 셀 ── */
 .cell {
   width: var(--cell-w, 64px); min-width: var(--cell-w, 64px);
-  height: var(--cell-h, 22px);
-  border-right: 1px solid #d4d4d4;
-  border-bottom: 1px solid #d4d4d4;
+  height: var(--cell-h, 18px);
+  border-right: 1px solid #D4D0C8;
+  border-bottom: 1px solid #D4D0C8;
   position: relative;
   text-align: center;
-  line-height: var(--cell-h, 22px);
-  font-size: 12px;
-  font-family: 'Calibri', Arial, sans-serif;
+  line-height: var(--cell-h, 18px);
+  font-size: 11px;
+  font-family: Tahoma, sans-serif;
   overflow: hidden;
   cursor: default;
 }
 
-/* 미공개 셀 */
+/* 미공개 셀 — XP 버튼처럼 볼록한 3D */
 .cell.hidden {
-  background: #f7f7f7;
+  background: #D4D0C8;
+  border: 2px solid;
+  border-color: #FFFFFF #808080 #808080 #FFFFFF;
   cursor: pointer;
 }
-.cell.hidden:hover {
-  background: #e8f4fc;
-  border-right-color: #9fc3e0;
-  border-bottom-color: #9fc3e0;
-  z-index: 1;
-}
+.cell.hidden:hover { background: #E0DDD5; }
 
 /* 깃발 셀 */
 .cell.flagged {
-  background: #fffbe6;
+  background: #D4D0C8;
+  border: 2px solid;
+  border-color: #FFFFFF #808080 #808080 #FFFFFF;
   cursor: pointer;
 }
 .cell.flagged::after {
@@ -223,89 +274,95 @@ body {
   top: 0; right: 0;
   width: 0; height: 0;
   border-style: solid;
-  border-width: 0 9px 9px 0;
-  border-color: transparent #e00 transparent transparent;
+  border-width: 0 8px 8px 0;
+  border-color: transparent #FF0000 transparent transparent;
 }
-.cell.flagged:hover { background: #fff3cd; }
+.cell.flagged:hover { background: #E0DDD5; }
 
 /* 공개 셀 */
-.cell.revealed { background: white; cursor: default; }
-.cell.revealed:hover { background: #f0f8ff; }
+.cell.revealed { background: white; border: 1px solid #D4D0C8; cursor: default; }
+.cell.revealed:hover { background: #F0F4FF; }
 
 /* 지뢰 */
-.cell.mine { background: #ffe0e0; color: #cc0000; font-size: 10px; font-weight: bold; }
-.cell.mine-hit { background: #ff4444; color: white; font-size: 10px; font-weight: bold; }
+.cell.mine { background: #C0C0C0; color: #000; border: 1px solid #808080; }
+.cell.mine-hit { background: #FF0000; color: white; font-size: 10px; font-weight: bold; }
 
 /* 잘못 표시된 깃발 */
-.cell.wrong-flag {
-  background: #ffd6d6;
-}
+.cell.wrong-flag { background: #C0C0C0; border: 1px solid #808080; }
 .cell.wrong-flag::after {
   content: '';
   position: absolute;
   top: 0; right: 0;
   width: 0; height: 0;
   border-style: solid;
-  border-width: 0 9px 9px 0;
-  border-color: transparent #888 transparent transparent;
+  border-width: 0 8px 8px 0;
+  border-color: transparent #808080 transparent transparent;
 }
 
-/* 숫자 색상 */
-.n1 { color: #0000cc; font-weight: bold; }
-.n2 { color: #007700; font-weight: bold; }
-.n3 { color: #cc0000; font-weight: bold; }
-.n4 { color: #000099; font-weight: bold; }
-.n5 { color: #990000; font-weight: bold; }
-.n6 { color: #007777; font-weight: bold; }
+/* 숫자 색상 — XP 지뢰찾기와 동일 */
+.n1 { color: #0000FF; font-weight: bold; }
+.n2 { color: #007B00; font-weight: bold; }
+.n3 { color: #FF0000; font-weight: bold; }
+.n4 { color: #00007B; font-weight: bold; }
+.n5 { color: #7B0000; font-weight: bold; }
+.n6 { color: #007B7B; font-weight: bold; }
 .n7 { color: #000000; font-weight: bold; }
-.n8 { color: #777777; font-weight: bold; }
+.n8 { color: #7B7B7B; font-weight: bold; }
 
-/* 선택된 셀 강조 */
 .cell.selected {
-  outline: 2px solid #1a73e8;
+  outline: 2px solid #000080;
   outline-offset: -2px;
   z-index: 2;
 }
 
 /* ── 시트 탭 ── */
 #sheet-bar {
-  background: #d6d6d6;
-  border-top: 1px solid #bbb;
+  background: #D4D0C8;
+  border-top: 2px solid #808080;
   display: flex;
   align-items: flex-end;
   padding: 0 4px;
-  height: 26px;
+  height: 24px;
   gap: 2px;
 }
 .sheet-tab {
-  padding: 3px 14px;
-  background: #e8e8e8;
-  border: 1px solid #bbb;
+  padding: 2px 12px;
+  background: #D4D0C8;
+  border: 1px solid #808080;
   border-bottom: none;
   cursor: pointer;
   font-size: 11px;
-  border-radius: 3px 3px 0 0;
+  font-family: Tahoma, sans-serif;
+  border-radius: 2px 2px 0 0;
   color: #555;
 }
 .sheet-tab.active {
   background: white;
-  color: #217346;
-  border-top: 2px solid #217346;
+  color: #000080;
   font-weight: bold;
+  border-top: 2px solid #000080;
+  padding-bottom: 3px;
 }
-.sheet-tab:hover:not(.active) { background: #d9d9d9; }
-.sheet-add { padding: 3px 8px; font-size: 14px; color: #888; cursor: default; }
+.sheet-tab:hover:not(.active) { background: #C4C0B8; }
+.sheet-add { padding: 2px 6px; font-size: 13px; color: #555; cursor: default; }
 
 /* ── 상태 바 ── */
 #status-bar {
-  background: #217346;
-  color: white;
-  padding: 2px 10px;
+  background: #D4D0C8;
+  border-top: 1px solid #ACA899;
+  color: #000;
+  padding: 2px 8px;
   font-size: 11px;
+  font-family: Tahoma, sans-serif;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-height: 22px;
+  min-height: 20px;
+}
+#status-text, #stats-text {
+  padding: 1px 5px;
+  border: 1px solid;
+  border-color: #808080 #DFDFDF #DFDFDF #808080;
 }
 
 /* ── 공용 모달 오버레이 ── */
@@ -313,51 +370,90 @@ body {
   display: none;
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.45);
+  background: rgba(0,0,0,0.3);
   z-index: 100;
   justify-content: center;
   align-items: center;
 }
 .modal-overlay.show { display: flex; }
 
-/* ── 게임 결과 팝업 ── */
+/* ── XP 알림 다이얼로그 ── */
 #popup {
-  background: white;
-  border: 1px solid #aaa;
-  border-radius: 4px;
-  padding: 24px 32px;
-  text-align: center;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.35);
-  min-width: 300px;
+  background: #ECE9D8;
+  border: 3px solid;
+  border-color: #FFFFFF #003198 #003198 #FFFFFF;
+  box-shadow: 4px 4px 14px rgba(0,0,0,0.55);
+  min-width: 340px;
+  padding: 0;
+  overflow: hidden;
 }
-#popup h2 { font-size: 18px; margin-bottom: 8px; }
-#popup p { color: #666; font-size: 13px; margin-bottom: 12px; }
-#popup-time { margin-bottom: 16px; font-weight: bold; color: #217346; font-size: 13px; }
-/* 닉네임 영역 (승리 시만 표시) */
-#nick-area { display: none; margin-bottom: 14px; }
-#nick-area label { font-size: 12px; color: #555; display: block; margin-bottom: 4px; }
+.xp-dialog-title {
+  background: linear-gradient(180deg,
+    #4B9CF5 0%, #2175E5 4%, #0C5EDB 8%,
+    #0A58D8 48%, #1268E2 52%, #1E78ED 90%, #0C5EDB 100%);
+  color: white;
+  padding: 3px 6px 3px 8px;
+  font-size: 12px;
+  font-weight: bold;
+  font-family: Tahoma, sans-serif;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 26px;
+  border-top: 1px solid #8AC0F8;
+}
+.xp-dialog-body {
+  padding: 16px 20px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+#popup-icon-row {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  text-align: left;
+}
+#popup-icon-large { font-size: 36px; line-height: 1; flex-shrink: 0; }
+#popup-msg-block { flex: 1; }
+#popup-msg { color: #000; font-size: 11px; font-family: Tahoma, sans-serif; line-height: 1.5; }
+#popup-time { font-weight: bold; color: #000080; font-size: 11px; font-family: Tahoma, sans-serif; margin-top: 4px; }
+.xp-dialog-sep {
+  height: 1px;
+  background: #ACA899;
+  border-bottom: 1px solid #FFFFFF;
+  margin: 0 -20px;
+  margin-bottom: -2px;
+}
+/* 닉네임 영역 */
+#nick-area { display: none; }
+#nick-area label { font-size: 11px; color: #000; display: block; margin-bottom: 3px; font-family: Tahoma, sans-serif; }
 #nick-input {
-  width: 180px; padding: 5px 8px; font-size: 13px;
-  border: 1px solid #aaa; border-radius: 2px; font-family: inherit;
-  outline: none;
+  width: 200px; padding: 2px 4px; font-size: 11px;
+  border: 2px solid; border-color: #808080 #DFDFDF #DFDFDF #808080;
+  font-family: Tahoma, sans-serif; outline: none; background: white; color: #000;
 }
-#nick-input:focus { border-color: #217346; box-shadow: 0 0 0 2px #d9ead3; }
-.popup-btns { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+#nick-input:focus { border-color: #000080 #A0C0E0 #A0C0E0 #000080; }
+.popup-btns { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; padding-top: 4px; }
 .popup-btns button {
-  border: none; padding: 7px 18px; font-size: 12px;
-  cursor: pointer; border-radius: 3px; font-family: inherit;
+  background: #D4D0C8;
+  border: 2px solid;
+  border-color: #FFFFFF #808080 #808080 #FFFFFF;
+  padding: 3px 20px; font-size: 11px;
+  cursor: pointer; font-family: Tahoma, sans-serif; color: #000;
+  min-width: 75px;
 }
-#rank-submit-btn { background: #217346; color: white; }
-#rank-submit-btn:hover { background: #1a5e38; }
-#popup-btn { background: #e8e8e8; color: #333; border: 1px solid #ccc; }
-#popup-btn:hover { background: #d4d4d4; }
+.popup-btns button:hover { background: #E4E0D8; }
+.popup-btns button:active { border-color: #808080 #FFFFFF #FFFFFF #808080; }
+#rank-submit-btn { min-width: 100px; }
 
 /* ── 랭킹 모달 ── */
 #rank-modal {
-  background: white;
-  border: 1px solid #aaa;
-  border-radius: 4px;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.35);
+  background: #ECE9D8;
+  border: 3px solid;
+  border-color: #FFFFFF #003198 #003198 #FFFFFF;
+  box-shadow: 4px 4px 14px rgba(0,0,0,0.55);
   width: 560px;
   max-width: 95vw;
   max-height: 80vh;
@@ -366,70 +462,103 @@ body {
   overflow: hidden;
 }
 #rank-modal-header {
-  background: #217346;
+  background: linear-gradient(180deg,
+    #4B9CF5 0%, #2175E5 4%, #0C5EDB 8%,
+    #0A58D8 48%, #1268E2 52%, #1E78ED 90%, #0C5EDB 100%);
   color: white;
-  padding: 10px 16px;
+  padding: 3px 6px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: bold;
+  font-family: Tahoma, sans-serif;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+  min-height: 26px;
+  border-top: 1px solid #8AC0F8;
 }
 #rank-modal-header button {
-  background: none; border: none; color: white;
-  font-size: 16px; cursor: pointer; line-height: 1;
-  opacity: .8;
+  background: linear-gradient(180deg, #F06060 0%, #C82020 40%, #A80000 60%, #C01818 100%);
+  border: 1px solid #880000;
+  border-radius: 2px;
+  color: white; font-size: 10px; font-weight: bold;
+  cursor: pointer; width: 20px; height: 18px;
+  display: flex; align-items: center; justify-content: center;
 }
-#rank-modal-header button:hover { opacity: 1; }
-/* 랭킹 탭 */
+#rank-modal-header button:hover { background: linear-gradient(180deg, #FF7070 0%, #E03030 100%); }
 #rank-tabs {
   display: flex;
-  border-bottom: 2px solid #217346;
-  background: #f3f3f3;
+  border-bottom: 2px solid #808080;
+  background: #D4D0C8;
+  padding: 3px 4px 0;
+  gap: 2px;
 }
 .rank-tab {
-  padding: 7px 20px;
-  font-size: 12px;
+  padding: 3px 14px;
+  font-size: 11px;
+  font-family: Tahoma, sans-serif;
   cursor: pointer;
   color: #555;
-  border-right: 1px solid #ddd;
+  background: #C4C0B8;
+  border: 1px solid #808080;
+  border-bottom: none;
+  border-radius: 2px 2px 0 0;
 }
-.rank-tab:hover:not(.active) { background: #e0f0e8; }
-.rank-tab.active { background: white; color: #217346; font-weight: bold; border-bottom: 2px solid white; margin-bottom: -2px; }
-/* 랭킹 테이블 */
-#rank-body { flex: 1; overflow-y: auto; padding: 12px 16px; }
-#rank-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.rank-tab:hover:not(.active) { background: #D0CCB8; }
+.rank-tab.active {
+  background: #ECE9D8;
+  color: #000080; font-weight: bold;
+  border-top: 2px solid #000080;
+  padding-bottom: 4px;
+  margin-bottom: -1px;
+}
+#rank-body { flex: 1; overflow-y: auto; padding: 10px 12px; background: #ECE9D8; }
+#rank-table { width: 100%; border-collapse: collapse; font-size: 11px; font-family: Tahoma, sans-serif; }
 #rank-table th {
-  background: #f3f3f3; border: 1px solid #ddd;
-  padding: 5px 10px; text-align: left; color: #444;
+  background: #D4D0C8; border: 1px solid #ACA899;
+  padding: 3px 8px; text-align: left; color: #000;
   font-weight: bold; position: sticky; top: 0;
 }
-#rank-table td { border: 1px solid #eee; padding: 5px 10px; color: #222; }
-#rank-table tr:nth-child(even) td { background: #f9f9f9; }
-#rank-table tr.my-rank td { background: #e8f5e9; color: #1a5e38; font-weight: bold; }
-.rank-gold   { color: #d4af37; font-weight: bold; }
-.rank-silver { color: #9e9e9e; font-weight: bold; }
-.rank-bronze { color: #cd7f32; font-weight: bold; }
-#rank-empty { text-align: center; color: #aaa; padding: 32px; font-size: 13px; }
-#rank-footer { padding: 8px 16px; border-top: 1px solid #eee; text-align: right; font-size: 11px; color: #888; }
+#rank-table td { border: 1px solid #D4D0C8; padding: 3px 8px; color: #000; }
+#rank-table tr:nth-child(even) td { background: #F5F3EA; }
+#rank-table tr.my-rank td { background: #DDE8F5; color: #000080; font-weight: bold; }
+.rank-gold   { color: #A07820; font-weight: bold; }
+.rank-silver { color: #707070; font-weight: bold; }
+.rank-bronze { color: #804020; font-weight: bold; }
+#rank-empty { text-align: center; color: #555; padding: 24px; font-size: 11px; font-family: Tahoma, sans-serif; }
+#rank-footer {
+  padding: 5px 12px; border-top: 2px solid;
+  border-color: #808080 #DFDFDF #DFDFDF #808080;
+  text-align: right; font-size: 11px; color: #555;
+  font-family: Tahoma, sans-serif; background: #D4D0C8;
+}
 
 /* ── 모바일 툴바 ── */
 #mobile-toolbar {
   display: none;
-  background: #f3f3f3;
-  border-bottom: 2px solid #217346;
-  padding: 4px 8px;
+  background: #D4D0C8;
+  border-bottom: 2px solid #808080;
+  padding: 3px 6px;
   align-items: center;
-  gap: 8px;
-  min-height: 38px;
+  gap: 6px;
+  min-height: 34px;
   flex-shrink: 0;
 }
 .mobile-counter {
-  font-size: 13px; font-weight: bold; color: #c00;
-  background: #111; padding: 2px 8px; border-radius: 2px;
-  letter-spacing: 1px; font-family: monospace;
+  font-size: 13px; font-weight: bold; color: #FF0000;
+  background: #111; padding: 1px 6px;
+  border: 2px solid; border-color: #808080 #DFDFDF #DFDFDF #808080;
+  letter-spacing: 1px; font-family: 'Courier New', monospace;
 }
-#mobile-hint { font-size: 10px; color: #888; margin-left: auto; white-space: nowrap; }
+#mobile-hint { font-size: 10px; color: #555; margin-left: auto; white-space: nowrap; font-family: Tahoma, sans-serif; }
+#mobile-new-game-btn {
+  background: #D4D0C8 !important;
+  border: 2px solid !important;
+  border-color: #FFFFFF #808080 #808080 #FFFFFF !important;
+  color: #000 !important; border-radius: 0 !important;
+  font-family: Tahoma, sans-serif !important;
+}
+#mobile-new-game-btn:active { border-color: #808080 #FFFFFF #FFFFFF #808080 !important; }
 
 /* ── 모바일 반응형 ── */
 @media (max-width: 640px) {
@@ -437,18 +566,18 @@ body {
   #mobile-toolbar { display: flex; }
   #menu-bar { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
   #menu-bar::-webkit-scrollbar { display: none; }
-  .menu-item { padding: 5px 8px; font-size: 11px; white-space: nowrap; }
-  #formula-bar { min-height: 22px; }
-  #name-box { width: 50px; min-width: 50px; font-size: 11px; }
+  .menu-item { padding: 4px 7px; font-size: 11px; white-space: nowrap; }
+  #formula-bar { min-height: 20px; }
+  #name-box { width: 50px; min-width: 50px; }
   #formula-input { font-size: 10px; }
-  #title-bar { font-size: 10px; padding: 3px 8px; min-height: 22px; }
-  .sheet-tab { padding: 2px 10px; font-size: 10px; }
-  #sheet-bar { height: 24px; }
-  #status-bar { font-size: 10px; padding: 2px 8px; min-height: 18px; }
-  .cell { touch-action: manipulation; font-size: 11px; }
-  #popup { padding: 20px 16px; min-width: unset; width: 90vw; }
+  #title-bar { padding: 2px 4px; min-height: 22px; font-size: 11px; }
+  .sheet-tab { padding: 2px 8px; font-size: 10px; }
+  #sheet-bar { height: 22px; }
+  #status-bar { padding: 2px 6px; min-height: 18px; }
+  .cell { touch-action: manipulation; }
+  #popup { min-width: unset; width: 90vw; }
   #rank-modal { width: 95vw; }
-  .rank-tab { padding: 7px 10px; font-size: 11px; }
+  .rank-tab { padding: 3px 8px; font-size: 10px; }
 }
 </style>
 </head>
@@ -458,7 +587,11 @@ body {
 <div id="title-bar">
   <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23217346'/%3E%3Cpath d='M3 3h4l1.5 3L10 3h3L10 8l3 5h-3l-1.5-3L7 13H3l3-5z' fill='white'/%3E%3C/svg%3E" width="16" height="16" style="margin-right:6px">
   <span>업무보고.xlsx - Microsoft Excel</span>
-  <div class="win-btns">─ &nbsp;&nbsp; ▢ &nbsp;&nbsp; ✕</div>
+  <div class="win-btns">
+    <span class="xp-wbtn">_</span>
+    <span class="xp-wbtn">□</span>
+    <span class="xp-wbtn xp-wbtn-close">✕</span>
+  </div>
 </div>
 
 <!-- 메뉴 바 -->
@@ -562,19 +695,30 @@ body {
   <span id="stats-text">합계: 0 &nbsp; 평균: 0 &nbsp; 개수: 0</span>
 </div>
 
-<!-- 게임 결과 팝업 -->
+<!-- 게임 결과 팝업 (XP 알림 다이얼로그) -->
 <div class="modal-overlay" id="overlay">
   <div id="popup">
-    <h2 id="popup-title">💣 오류 발생!</h2>
-    <p id="popup-msg">순환 참조가 감지되었습니다.</p>
-    <p id="popup-time"></p>
-    <div id="nick-area">
-      <label for="nick-input">📝 닉네임을 입력하고 랭킹에 등록하세요</label>
-      <input id="nick-input" type="text" maxlength="12" placeholder="닉네임 (최대 12자)">
+    <div class="xp-dialog-title">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23217346'/%3E%3Cpath d='M3 3h4l1.5 3L10 3h3L10 8l3 5h-3l-1.5-3L7 13H3l3-5z' fill='white'/%3E%3C/svg%3E" width="14" height="14">
+      <span id="popup-title">Microsoft Excel</span>
     </div>
-    <div class="popup-btns">
-      <button id="rank-submit-btn">🏆 랭킹에 올리기</button>
-      <button id="popup-btn">새 시트 열기</button>
+    <div class="xp-dialog-body">
+      <div id="popup-icon-row">
+        <span id="popup-icon-large">⚠️</span>
+        <div id="popup-msg-block">
+          <p id="popup-msg">순환 참조가 감지되었습니다.</p>
+          <p id="popup-time"></p>
+        </div>
+      </div>
+      <div id="nick-area">
+        <label for="nick-input">닉네임을 입력하고 랭킹에 등록하세요:</label>
+        <input id="nick-input" type="text" maxlength="12" placeholder="닉네임 (최대 12자)">
+      </div>
+      <div class="xp-dialog-sep"></div>
+      <div class="popup-btns">
+        <button id="rank-submit-btn">랭킹에 올리기</button>
+        <button id="popup-btn">확인</button>
+      </div>
     </div>
   </div>
 </div>
@@ -1152,18 +1296,20 @@ function showPopup(win, secs) {
   const rankBtn  = document.getElementById('rank-submit-btn');
 
   if (win) {
-    document.getElementById('popup-title').textContent = '🎉 분석 완료!';
+    document.getElementById('popup-title').textContent = '분석 완료 — Microsoft Excel';
+    document.getElementById('popup-icon-large').textContent = '🎉';
     document.getElementById('popup-msg').innerHTML =
-      `모든 지뢰(${cfg.mines}개)를 성공적으로 검출했습니다. 엑셀 마스터!`;
-    document.getElementById('popup-time').textContent = `⏱ 소요 시간: ${fmtTime(secs)}`;
+      `모든 지뢰(${cfg.mines}개)를 성공적으로 검출했습니다.<br>엑셀 마스터!`;
+    document.getElementById('popup-time').textContent = `소요 시간: ${fmtTime(secs)}`;
     document.getElementById('nick-input').value = '';
     nickArea.style.display = '';
     rankBtn.style.display = '';
   } else {
-    document.getElementById('popup-title').textContent = '💥 오류 발생!';
+    document.getElementById('popup-title').textContent = '오류 — Microsoft Excel';
+    document.getElementById('popup-icon-large').textContent = '⛔';
     document.getElementById('popup-msg').innerHTML =
-      `순환 참조 오류 — 지뢰를 밟았습니다.<br>#REF! #VALUE! #BOOM!`;
-    document.getElementById('popup-time').textContent = `⏱ 소요 시간: ${fmtTime(secs)}`;
+      `순환 참조 오류가 감지되었습니다.<br>#REF! #VALUE! #BOOM!`;
+    document.getElementById('popup-time').textContent = `소요 시간: ${fmtTime(secs)}`;
     nickArea.style.display = 'none';
     rankBtn.style.display = 'none';
   }
