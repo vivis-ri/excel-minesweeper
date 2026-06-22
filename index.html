@@ -579,9 +579,155 @@ body {
   #rank-modal { width: 95vw; }
   .rank-tab { padding: 3px 8px; font-size: 10px; }
 }
+
+
+/* ══ EXCEL 스프레드시트 테마 오버라이드 ══ */
+[data-theme="excel"] {
+  background: #c8c8c8;
+  font-family: 'Calibri', 'Malgun Gothic', Arial, sans-serif;
+}
+[data-theme="excel"] #title-bar {
+  background: #217346;
+  border-top: none;
+  text-shadow: none;
+  font-size: 12px;
+  min-height: 28px;
+}
+[data-theme="excel"] .xp-wbtn {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 3px;
+}
+[data-theme="excel"] .xp-wbtn:hover { background: rgba(255,255,255,0.3); }
+[data-theme="excel"] .xp-wbtn-close { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.4); }
+[data-theme="excel"] .xp-wbtn-close:hover { background: rgba(180,0,0,0.5); }
+[data-theme="excel"] #menu-bar { background: #f3f3f3; border-bottom-color: #d4d4d4; }
+[data-theme="excel"] .menu-item { color: #222; font-family: 'Calibri', Arial, sans-serif; }
+[data-theme="excel"] .menu-item:hover { background: #d9ead3; color: #222; }
+[data-theme="excel"] .menu-item.active { background: #217346; color: white; }
+[data-theme="excel"] #ribbon { background: #f3f3f3; border-bottom: 2px solid #217346; }
+[data-theme="excel"] .ribbon-btn { font-family: 'Calibri', Arial, sans-serif; }
+[data-theme="excel"] .ribbon-btn:hover { background: #d9ead3; border-color: #b8d4b2; }
+[data-theme="excel"] .ribbon-select { border: 1px solid #ccc; font-family: 'Calibri', Arial, sans-serif; }
+[data-theme="excel"] .ribbon-label { font-family: 'Calibri', Arial, sans-serif; }
+[data-theme="excel"] #new-game-btn {
+  background: #217346; color: white;
+  border: 1px solid #1a5e38;
+  border-radius: 2px;
+  font-family: 'Calibri', Arial, sans-serif;
+}
+[data-theme="excel"] #new-game-btn:hover { background: #1a5e38; }
+[data-theme="excel"] #new-game-btn:active { border-color: #1a5e38; }
+[data-theme="excel"] #mine-counter,
+[data-theme="excel"] #timer-counter,
+[data-theme="excel"] .mobile-counter {
+  color: #c00; border: none; border-radius: 2px; padding: 2px 6px;
+  font-family: 'Courier New', monospace;
+}
+[data-theme="excel"] #formula-bar { border: none; border-bottom: 1px solid #d4d4d4; }
+[data-theme="excel"] #name-box { border-right: 1px solid #d4d4d4; font-family: 'Calibri', Arial, sans-serif; }
+[data-theme="excel"] #fx-label { border-right-color: #d4d4d4; }
+[data-theme="excel"] #formula-input { font-family: 'Calibri', Arial, sans-serif; }
+[data-theme="excel"] #grid-area { border: none; margin: 0; }
+[data-theme="excel"] .corner-cell,
+[data-theme="excel"] .col-header,
+[data-theme="excel"] .row-header { background: #f3f3f3; border-color: #d4d4d4; font-family: 'Calibri', Arial, sans-serif; color: #444; }
+[data-theme="excel"] .col-header { border-bottom-width: 1px; }
+[data-theme="excel"] .row-header { border-right-width: 1px; }
+[data-theme="excel"] .col-header.hl { background: #d9ead3; color: #217346; }
+[data-theme="excel"] .row-header.hl { background: #d9ead3; color: #217346; }
+[data-theme="excel"] .cell { font-family: 'Calibri', Arial, sans-serif; border-color: #d4d4d4; }
+[data-theme="excel"] .cell.hidden { background: #f7f7f7; border: 1px solid #d4d4d4; }
+[data-theme="excel"] .cell.hidden:hover { background: #e8f4fc; border-color: #9fc3e0; }
+[data-theme="excel"] .cell.flagged { background: #fffbe6; border: 1px solid #d4d4d4; }
+[data-theme="excel"] .cell.flagged::after { border-color: transparent #e00 transparent transparent; }
+[data-theme="excel"] .cell.flagged:hover { background: #fff3cd; }
+[data-theme="excel"] .cell.revealed { border: 1px solid #d4d4d4; background: white; }
+[data-theme="excel"] .cell.mine { background: #ffe0e0; border: 1px solid #d4d4d4; color: #cc0000; }
+[data-theme="excel"] .cell.mine-hit { background: #ff4444; border: none; }
+[data-theme="excel"] .cell.wrong-flag { background: #ffd6d6; border: 1px solid #d4d4d4; }
+[data-theme="excel"] .cell.selected { outline-color: #1a73e8; }
+[data-theme="excel"] .n1 { color: #0000cc; }
+[data-theme="excel"] .n2 { color: #007700; }
+[data-theme="excel"] .n3 { color: #cc0000; }
+[data-theme="excel"] .n4 { color: #000099; }
+[data-theme="excel"] .n5 { color: #990000; }
+[data-theme="excel"] .n6 { color: #007777; }
+[data-theme="excel"] #sheet-bar { background: #d6d6d6; border-top: 1px solid #bbb; }
+[data-theme="excel"] .sheet-tab { background: #e8e8e8; border-color: #bbb; color: #555; border-radius: 3px 3px 0 0; font-family: 'Calibri', Arial, sans-serif; }
+[data-theme="excel"] .sheet-tab.active { background: white; color: #217346; border-top: 2px solid #217346; border-top-color: #217346; }
+[data-theme="excel"] .sheet-tab:hover:not(.active) { background: #d9d9d9; }
+[data-theme="excel"] #status-bar { background: #217346; color: white; border-top: none; min-height: 22px; font-family: 'Calibri', Arial, sans-serif; }
+[data-theme="excel"] #status-text,
+[data-theme="excel"] #stats-text { border: none; background: transparent; }
+[data-theme="excel"] #popup { border: 1px solid #aaa; border-radius: 4px; box-shadow: 0 8px 32px rgba(0,0,0,0.35); }
+[data-theme="excel"] .xp-dialog-title { background: #217346; border-top: none; text-shadow: none; min-height: 36px; font-size: 14px; }
+[data-theme="excel"] .xp-dialog-body { background: white; padding: 20px 24px 16px; }
+[data-theme="excel"] .xp-dialog-sep { background: #eee; border-bottom: none; }
+[data-theme="excel"] #popup-msg { color: #666; font-size: 13px; font-family: 'Calibri', Arial, sans-serif; }
+[data-theme="excel"] #popup-time { color: #217346; font-size: 13px; font-family: 'Calibri', Arial, sans-serif; }
+[data-theme="excel"] #popup-icon-large { font-size: 44px; }
+[data-theme="excel"] .popup-btns button { border: 1px solid #ccc; border-radius: 3px; padding: 6px 18px; font-family: 'Calibri', Arial, sans-serif; }
+[data-theme="excel"] #rank-submit-btn { background: #217346; color: white; border-color: #1a5e38; }
+[data-theme="excel"] #rank-submit-btn:hover { background: #1a5e38; }
+[data-theme="excel"] .popup-btns button:hover { background: #f0f0f0; }
+[data-theme="excel"] #nick-input { border: 1px solid #aaa; border-radius: 2px; padding: 4px 8px; font-size: 12px; font-family: 'Calibri', Arial, sans-serif; }
+[data-theme="excel"] #nick-input:focus { border-color: #217346; box-shadow: 0 0 0 2px #d9ead3; }
+[data-theme="excel"] #rank-modal { border: 1px solid #aaa; border-radius: 4px; box-shadow: 0 8px 40px rgba(0,0,0,0.35); }
+[data-theme="excel"] #rank-modal-header { background: #217346; border-top: none; min-height: auto; padding: 10px 16px; font-size: 13px; text-shadow: none; }
+[data-theme="excel"] #rank-modal-header button { background: none; border: none; font-size: 16px; font-weight: normal; width: auto; height: auto; border-radius: 0; opacity: .8; }
+[data-theme="excel"] #rank-modal-header button:hover { background: none; opacity: 1; }
+[data-theme="excel"] #rank-tabs { background: #f3f3f3; border-bottom-color: #217346; padding: 0; gap: 0; }
+[data-theme="excel"] .rank-tab { background: transparent; border: none; border-right: 1px solid #ddd; border-radius: 0; color: #555; padding: 7px 20px; font-family: 'Calibri', Arial, sans-serif; }
+[data-theme="excel"] .rank-tab:hover:not(.active) { background: #e0f0e8; }
+[data-theme="excel"] .rank-tab.active { background: white; color: #217346; border-top: none; border-bottom: 2px solid white; margin-bottom: -2px; padding-bottom: 7px; }
+[data-theme="excel"] #rank-body { background: white; }
+[data-theme="excel"] #rank-footer { background: white; border-top: 1px solid #eee; border-top-width: 1px; color: #888; padding: 8px 16px; font-family: 'Calibri', Arial, sans-serif; }
+[data-theme="excel"] #rank-table th { background: #f3f3f3; border-color: #ddd; font-family: 'Calibri', Arial, sans-serif; }
+[data-theme="excel"] #rank-table td { border-color: #eee; font-family: 'Calibri', Arial, sans-serif; }
+[data-theme="excel"] #rank-table tr:nth-child(even) td { background: #f9f9f9; }
+[data-theme="excel"] #rank-table tr.my-rank td { background: #e8f5e9; color: #1a5e38; }
+[data-theme="excel"] #rank-empty { color: #aaa; font-family: 'Calibri', Arial, sans-serif; }
+[data-theme="excel"] #mobile-toolbar { background: #f3f3f3; border-bottom: 2px solid #217346; }
+[data-theme="excel"] .mobile-counter { color: #c00; border: none; border-radius: 2px; }
+[data-theme="excel"] #mobile-hint { color: #888; }
+[data-theme="excel"] #mobile-new-game-btn {
+  background: #217346 !important; color: white !important;
+  border: 1px solid #1a5e38 !important; border-radius: 2px !important;
+}
+
+/* ── 테마 드롭다운 공통 ── */
+#theme-menu-wrap { margin-left: auto; position: relative; }
+#theme-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%; right: 0;
+  z-index: 300;
+  min-width: 170px;
+  box-shadow: 3px 3px 8px rgba(0,0,0,0.25);
+}
+#theme-dropdown.open { display: block; }
+.theme-option {
+  padding: 6px 12px;
+  font-size: 11px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+}
+.theme-option.active::after { content: ' ✓'; margin-left: auto; }
+[data-theme="xp"] #theme-dropdown { background: #ECE9D8; border: 2px solid; border-color: #FFFFFF #808080 #808080 #FFFFFF; }
+[data-theme="xp"] .theme-option { font-family: Tahoma, sans-serif; color: #000; }
+[data-theme="xp"] .theme-option:hover { background: #C8DDF8; }
+[data-theme="xp"] .theme-option.active { background: #B8CEE8; font-weight: bold; }
+[data-theme="excel"] #theme-dropdown { background: white; border: 1px solid #ccc; border-radius: 2px; }
+[data-theme="excel"] .theme-option { font-family: 'Calibri', Arial, sans-serif; color: #222; }
+[data-theme="excel"] .theme-option:hover { background: #e8f4e8; }
+[data-theme="excel"] .theme-option.active { background: #d9ead3; font-weight: bold; }
 </style>
 </head>
-<body>
+<body data-theme="xp">
 
 <!-- 타이틀 바 -->
 <div id="title-bar">
@@ -604,6 +750,13 @@ body {
   <div class="menu-item" data-action="ranking" style="cursor:pointer" title="랭킹 보기">데이터</div>
   <div class="menu-item">검토</div>
   <div class="menu-item">보기</div>
+  <div id="theme-menu-wrap">
+    <div class="menu-item" id="theme-toggle" style="cursor:pointer;white-space:nowrap;" title="테마 전환">🎨 테마 ▾</div>
+    <div id="theme-dropdown">
+      <div class="theme-option" data-theme-pick="xp">🖥️ Windows XP</div>
+      <div class="theme-option" data-theme-pick="excel">📊 스프레드시트</div>
+    </div>
+  </div>
 </div>
 
 <!-- 리본 -->
@@ -1385,6 +1538,34 @@ document.getElementById('mobile-new-game-btn').addEventListener('click', () => i
 window.addEventListener('resize', () => {
   applyCellSize();
 });
+
+// ── 테마 전환 ──
+function applyTheme(theme) {
+  document.body.dataset.theme = theme;
+  localStorage.setItem('gameTheme', theme);
+  document.querySelectorAll('.theme-option').forEach(el => {
+    el.classList.toggle('active', el.dataset.themePick === theme);
+  });
+}
+
+document.getElementById('theme-toggle').addEventListener('click', e => {
+  e.stopPropagation();
+  document.getElementById('theme-dropdown').classList.toggle('open');
+});
+
+document.getElementById('theme-dropdown').addEventListener('click', e => {
+  const opt = e.target.closest('.theme-option[data-theme-pick]');
+  if (!opt) return;
+  applyTheme(opt.dataset.themePick);
+  document.getElementById('theme-dropdown').classList.remove('open');
+});
+
+document.addEventListener('click', () => {
+  document.getElementById('theme-dropdown').classList.remove('open');
+});
+
+// 저장된 테마 불러오기
+applyTheme(localStorage.getItem('gameTheme') || 'xp');
 
 // ── 시작 (기본: 보고서 = 쉬움) ──
 initGame('easy');
