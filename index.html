@@ -1299,6 +1299,18 @@ function buildDOM() {
     rows.appendChild(row);
   }
 
+  // 이벤트 리스너는 #grid-rows에 위임으로 최초 1회만 바인딩한다.
+  // (buildDOM은 매 게임마다 호출되므로, 여기서 addEventListener를 호출하면
+  //  익명 터치 핸들러가 중복 누적되어 long-press 깃발이 여러 번 토글된다)
+  bindGridEvents(rows);
+}
+
+// ── 그리드 이벤트 바인딩 (최초 1회) ──
+let gridEventsBound = false;
+function bindGridEvents(rows) {
+  if (gridEventsBound) return;
+  gridEventsBound = true;
+
   // 이벤트 위임 (단일 리스너)
   rows.addEventListener('click',       onCellClick);
   rows.addEventListener('contextmenu', onCellRightClick);
